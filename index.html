@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>HeartLink | إنشاء طلب احترافي</title>
+  <meta name="description" content="أنشئ طلبك في دقائق — تجربة طلب احترافية من HeartLink" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    :root{
+      --primary:#6366f1;
+      --secondary:#8b5cf6;
+      --accent:#06b6d4;
+      --bg:#030712;
+      --glass:rgba(15,23,42,.6);
+      --glass-border:rgba(255,255,255,.08);
+      --text:#f8fafc;
+      --text-dim:#94a3b8;
+      --success:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+    }
+    .light-mode{
+      --bg:#f8fafc;
+      --glass:rgba(255,255,255,.82);
+      --glass-border:rgba(0,0,0,.06);
+      --text:#0f172a;
+      --text-dim:#64748b;
+    }
+
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Segoe UI',system-ui,sans-serif}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+      height:100dvh;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      transition:.5s cubic-bezier(.4,0,.2,1);
+    }
+
+    .bg-glow{
+      position:fixed;
+      width:520px;height:520px;
+      background:radial-gradient(circle,var(--primary) 0%, transparent 70%);
+      filter:blur(130px);
+      opacity:.16;
+      z-index:-1;
+      animation:floating 16s infinite alternate ease-in-out;
+    }
+    .bg-glow.b2{
+      right:-180px;bottom:-160px;
+      background:radial-gradient(circle,var(--accent) 0%, transparent 70%);
+      opacity:.12;
+      animation-duration:18s;
+    }
+    @keyframes floating{
+      0%{transform:translate(-20%,-20%)}
+      100%{transform:translate(25%,22%)}
+    }
+
+    header{
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:100;
+      height:90px;
+      animation:fadeInDown .7s ease;
+      gap:12px;
+    }
+    .header-tagline{
+      display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex:1;min-width:0
+    }
+    .tagline-main{
+      font-size:15px;font-weight:900;white-space:nowrap;letter-spacing:.2px;color:#ffffff;
+      display:flex;align-items:center;gap:8px;min-width:0
+    }
+    .tagline-main .pill{
+      font-size:10px;font-weight:900;
+      padding:6px 10px;border-radius:999px;
+      background:rgba(99,102,241,.12);
+      border:1px solid rgba(99,102,241,.28);
+      color:var(--text);
+      letter-spacing:.6px;
+      flex:0 0 auto;
+    }
+    .tagline-main i{
+      color:#ffd700;font-size:13px;
+      filter:drop-shadow(0 0 6px rgba(255,215,0,.35));
+      animation:crownPulse 2s infinite ease-in-out;
+      flex:0 0 auto;
+    }
+    .tagline-sub{
+      font-size:9px;color:var(--primary);font-weight:800;letter-spacing:1.6px;opacity:.85;text-transform:uppercase
+    }
+    @keyframes crownPulse{
+      0%,100%{transform:scale(1) rotate(0deg)}
+      50%{transform:scale(1.18) rotate(10deg)}
+    }
+
+    .theme-toggle{
+      width:42px;height:42px;border-radius:14px;background:var(--glass);
+      border:1px solid var(--glass-border);color:var(--text);cursor:pointer;
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      display:flex;align-items:center;justify-content:center;transition:.25s;
+      box-shadow:0 10px 28px rgba(0,0,0,.22);
+      flex:0 0 auto;
+    }
+    .theme-toggle:active{transform:scale(.92)}
+
+    main{
+      flex:1;
+      padding:0 18px;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      margin-bottom:26px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:520px;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .glass-card{
+      width:100%;
+      background:var(--glass);
+      backdrop-filter:blur(42px);
+      -webkit-backdrop-filter:blur(42px);
+      border:1px solid var(--glass-border);
+      border-radius:34px;
+      box-shadow:0 28px 60px -14px rgba(0,0,0,.62);
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      max-height:calc(100dvh - 110px);
+    }
+
+    .card-top{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--glass-border);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .progress-row{
+      display:flex;align-items:center;justify-content:space-between;gap:10px
+    }
+    .step-dots{
+      display:flex;align-items:center;gap:8px
+    }
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      background:rgba(148,163,184,.28);
+      border:1px solid rgba(148,163,184,.18);
+      transition:.25s;
+    }
+    .dot.active{background:rgba(99,102,241,.9);border-color:rgba(99,102,241,.5);box-shadow:0 0 0 6px rgba(99,102,241,.12)}
+    .dot.done{background:rgba(34,197,94,.95);border-color:rgba(34,197,94,.55)}
+    .top-actions{
+      display:flex;align-items:center;gap:8px
+    }
+    .mini-btn{
+      height:34px;border-radius:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--glass-border);
+      color:var(--text);
+      padding:0 12px;
+      display:flex;align-items:center;gap:8px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.25s;
+    }
+    .mini-btn i{opacity:.9}
+    .mini-btn:active{transform:scale(.97)}
+    .mini-btn.danger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
+    .mini-btn.danger i{color:var(--danger)}
+
+    .title-row{
+      display:flex;align-items:center;justify-content:space-between;gap:10px
+    }
+    .title-row h1{
+      margin:0;
+      font-size:16px;
+      font-weight:1000;
+      letter-spacing:.2px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .title-row h1 span{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .subtitle{
+      margin:0;
+      font-size:11px;
+      color:var(--text-dim);
+      line-height:1.55;
+    }
+
+    .bar{
+      height:10px;border-radius:999px;background:rgba(148,163,184,.16);
+      overflow:hidden;border:1px solid var(--glass-border);
+    }
+    .bar > div{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));
+      border-radius:999px;
+      transition:.35s cubic-bezier(.4,0,.2,1);
+      box-shadow:0 10px 20px rgba(99,102,241,.18);
+    }
+
+    .card-body{
+      padding:14px 16px 16px;
+      overflow:auto;
+      scrollbar-width:none;
+    }
+    .card-body::-webkit-scrollbar{display:none}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .section{
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--glass-border);
+      border-radius:26px;
+      padding:14px;
+    }
+
+    .section-h{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .section-h h2{
+      margin:0;
+      font-size:13px;
+      font-weight:1000;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .section-h h2 i{
+      width:34px;height:34px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(99,102,241,.12);
+      border:1px solid rgba(99,102,241,.25);
+      color:var(--primary);
+    }
+    .hint{
+      font-size:10px;
+      color:var(--text-dim);
+      line-height:1.4;
+      margin:0;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .field{
+      flex:1 1 140px;
+      min-width:140px;
+    }
+    label{
+      display:block;
+      font-size:10px;
+      color:var(--text-dim);
+      font-weight:900;
+      letter-spacing:.4px;
+      margin:0 6px 6px 0;
+    }
+    input, select, textarea{
+      width:100%;
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--glass-border);
+      color:var(--text);
+      border-radius:16px;
+      padding:12px 12px;
+      outline:none;
+      transition:.25s;
+      font-size:12px;
+    }
+    textarea{min-height:92px;resize:none;line-height:1.6}
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(99,102,241,.55);
+      box-shadow:0 0 0 6px rgba(99,102,241,.12);
+    }
+
+    .chips{
+      display:flex;flex-wrap:wrap;gap:10px
+    }
+    .chip{
+      flex:1 1 130px;
+      min-width:130px;
+      cursor:pointer;
+      user-select:none;
+      border-radius:18px;
+      padding:12px 12px;
+      background:rgba(255,255,255,.02);
+      border:1px solid var(--glass-border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      transition:.25s;
+    }
+    .chip .l{
+      display:flex;align-items:center;gap:10px;min-width:0
+    }
+    .chip .ic{
+      width:34px;height:34px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--glass-border);
+      color:var(--text);
+      flex:0 0 auto;
+    }
+    .chip b{
+      font-size:12px;
+      font-weight:1000;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .chip small{display:block;font-size:9px;color:var(--text-dim);margin-top:2px}
+    .chip .r i{opacity:.75}
+    .chip.active{
+      border-color:rgba(99,102,241,.6);
+      background:rgba(99,102,241,.10);
+      transform:translateY(-2px);
+    }
+    .chip.active .ic{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff}
+    .chip:active{transform:scale(.98)}
+
+    .toggle{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px 12px;border-radius:18px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,.02);
+    }
+    .toggle .t{
+      display:flex;align-items:center;gap:10px
+    }
+    .toggle .t i{
+      width:34px;height:34px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(6,182,212,.12);
+      border:1px solid rgba(6,182,212,.25);
+      color:var(--accent);
+    }
+    .switch{
+      width:52px;height:30px;border-radius:999px;
+      background:rgba(148,163,184,.20);
+      border:1px solid var(--glass-border);
+      position:relative;
+      cursor:pointer;
+      transition:.25s;
+      flex:0 0 auto;
+    }
+    .switch::after{
+      content:"";
+      position:absolute;
+      width:24px;height:24px;
+      border-radius:50%;
+      background:#fff;
+      top:2px;
+      right:2px;
+      transition:.25s;
+      box-shadow:0 10px 18px rgba(0,0,0,.25);
+    }
+    .switch.on{
+      background:rgba(34,197,94,.35);
+      border-color:rgba(34,197,94,.35);
+    }
+    .switch.on::after{
+      right:26px;
+      background:#fff;
+    }
+
+    .counter{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px;border-radius:18px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,.02);
+    }
+    .counter .c-l{display:flex;align-items:center;gap:10px}
+    .counter .c-l i{
+      width:34px;height:34px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(99,102,241,.12);
+      border:1px solid rgba(99,102,241,.22);
+      color:var(--primary);
+    }
+    .ctr{
+      display:flex;align-items:center;gap:8px
+    }
+    .ctr button{
+      width:34px;height:34px;border-radius:14px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      cursor:pointer;
+      transition:.2s;
+      font-weight:1000;
+    }
+    .ctr button:active{transform:scale(.95)}
+    .ctr input{
+      width:64px;text-align:center;padding:10px 8px;border-radius:14px;
+      font-weight:1000
+    }
+
+    .pages-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .page-card{
+      border-radius:22px;
+      border:1px solid var(--glass-border);
+      background:linear-gradient(165deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.015) 100%);
+      padding:12px;
+      overflow:hidden;
+    }
+    .page-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-bottom:10px;
+    }
+    .page-head b{
+      font-size:12px;font-weight:1000;display:flex;align-items:center;gap:10px
+    }
+    .page-head b .num{
+      width:30px;height:30px;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff;font-weight:1000;box-shadow:0 10px 18px rgba(99,102,241,.22);
+    }
+    .page-tools{
+      display:flex;align-items:center;gap:8px
+    }
+    .pill{
+      font-size:9px;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,.02);
+      color:var(--text-dim);
+      font-weight:900;
+      letter-spacing:.4px;
+      white-space:nowrap;
+    }
+
+    .page-options{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .summary{
+      border-radius:26px;
+      border:1px dashed rgba(99,102,241,.45);
+      background:rgba(99,102,241,.06);
+      padding:14px;
+    }
+    .summary h3{
+      margin:0 0 10px 0;
+      font-size:12px;
+      font-weight:1000;
+      display:flex;align-items:center;gap:10px
+    }
+    .summary h3 i{color:var(--primary)}
+    .sum-list{margin:0;padding:0 18px 0 0;font-size:11px;color:var(--text);line-height:1.7}
+    .sum-list li{margin:4px 0}
+    .sum-muted{color:var(--text-dim)}
+
+    .divider{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      margin:10px 0 2px;
+      color:var(--primary);
+      font-weight:1000;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:10px;
+      opacity:.95;
+    }
+    .divider:before,.divider:after{
+      content:"";
+      flex:1;height:1px;
+      background:linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+
+    .footer-actions{
+      padding:12px 16px 16px;
+      border-top:1px solid var(--glass-border);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.10) 100%);
+    }
+    .btn{
+      flex:1 1 160px;
+      min-width:160px;
+      height:48px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+      font-weight:1000;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      transition:.25s;
+      color:#fff;
+      text-decoration:none;
+    }
+    .btn:active{transform:scale(.97)}
+    .btn.primary{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      box-shadow:0 14px 28px rgba(99,102,241,.22);
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--glass-border);
+      color:var(--text);
+    }
+    .btn.success{
+      background:linear-gradient(135deg, var(--success), #16a34a);
+      box-shadow:0 14px 28px rgba(34,197,94,.20);
+    }
+    .btn.whatsapp{
+      background:#25D366;
+      box-shadow:0 14px 28px rgba(37,211,102,.18);
+    }
+    .btn.disabled{
+      opacity:.55;
+      pointer-events:none;
+      filter:saturate(.6);
+    }
+
+    .toast{
+      position:fixed;
+      bottom:22px;
+      left:50%;
+      transform:translateX(-50%);
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      z-index:9999;
+      display:none;
+      font-size:12px;
+      font-weight:900;
+      gap:10px;
+      align-items:center;
+    }
+    .toast.show{display:flex;animation:fadeInUp .25s ease}
+    .toast i{color:#ffd700}
+
+    .faq{
+      display:flex;flex-direction:column;gap:10px
+    }
+    details{
+      border:1px solid var(--glass-border);
+      border-radius:18px;
+      background:rgba(255,255,255,.02);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:1000;
+      font-size:12px;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{
+      margin:10px 0 0 0;
+      font-size:11px;
+      line-height:1.7;
+      color:var(--text-dim);
+    }
+
+    .social-proof{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+    .stat{
+      border-radius:18px;
+      border:1px solid var(--glass-border);
+      background:rgba(255,255,255,.02);
+      padding:10px 10px;
+      text-align:center;
+    }
+    .stat b{display:block;font-size:13px;font-weight:1000}
+    .stat span{display:block;font-size:9px;color:var(--text-dim);margin-top:2px;font-weight:900;letter-spacing:.4px}
+
+    .success-screen{
+      text-align:center;
+      padding:8px 2px;
+    }
+    .success-icon{
+      width:84px;height:84px;border-radius:50%;
+      margin:4px auto 12px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.28);
+      box-shadow:0 18px 40px rgba(34,197,94,.12);
+      animation:pulse 1.4s infinite ease-in-out;
+    }
+    .success-icon i{font-size:34px;color:var(--success)}
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.06)}
+    }
+
+    .footer-copyright-tag{
+      position:fixed;
+      bottom:8px;
+      left:0;
+      width:100%;
+      text-align:center;
+      font-size:9px;
+      color:var(--text-dim);
+      opacity:.55;
+      z-index:999;
+      pointer-events:none;
+      letter-spacing:1px;
+    }
+
+    @keyframes fadeInDown{
+      from{opacity:0;transform:translateY(-16px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translate(-50%, 12px)}
+      to{opacity:1;transform:translate(-50%, 0)}
+    }
+
+    /* صغيرات */
+    .muted{color:var(--text-dim)}
+    .req{color:#ffd700;font-weight:1000}
+    .error{
+      border-color:rgba(239,68,68,.55)!important;
+      box-shadow:0 0 0 6px rgba(239,68,68,.10)!important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-glow b2"></div>
+
+  <header>
+    <div class="header-tagline">
+      <div class="tagline-main">
+        <i class="fa-solid fa-crown"></i>
+        HeartLink
+        <span class="pill">ORDER BUILDER</span>
+      </div>
+      <div class="tagline-sub">Premium Experience</div>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+      <i id="theme-icon" class="fa-solid fa-moon"></i>
+    </button>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="glass-card animate__animated animate__fadeIn">
+        <div class="card-top">
+          <div class="progress-row">
+            <div class="step-dots" id="dots"></div>
+            <div class="top-actions">
+              <button class="mini-btn" onclick="copyOrderSummary()" title="نسخ الملخص">
+                <i class="fa-solid fa-copy"></i><span>نسخ</span>
+              </button>
+              <button class="mini-btn danger" onclick="resetAll()" title="إعادة ضبط">
+                <i class="fa-solid fa-rotate-left"></i><span>مسح</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="title-row">
+            <div>
+              <h1><i class="fa-solid fa-wand-magic-sparkles"></i> إنشاء <span>طلب</span> احترافي</h1>
+              <p class="subtitle">املا البيانات مرة واحدة — وفي الآخر هتطلع لك رسالة جاهزة تبعتها على الواتساب + قائمة بالحاجات اللي لازم تبعتها (صور/فيديو/أغاني).</p>
+            </div>
+          </div>
+
+          <div class="bar" aria-label="Progress">
+            <div id="barFill"></div>
+          </div>
+        </div>
+
+        <div class="card-body" id="cardBody">
+          <!-- steps render here -->
+        </div>
+
+        <div class="footer-actions" id="footerActions">
+          <!-- buttons render here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-copyright-tag">© 2026 HEARTLINK — ORDER EXPERIENCE</div>
+
+  <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastText">تم</span></div>
+
+<script>
+  // ========= إعدادات =========
+  const WHATSAPP_NUMBER = "201125674359"; // غيّر الرقم لو حبيت
+  const STORAGE_KEY = "heartlink_order_builder_v1";
+
+  // ========= حالة الطلب =========
+  const state = {
+    step: 0,
+    // Step 1
+    occasion: "",
+    customIdea: "",
+    receiverType: "حبيبتي/حبيبي",
+    // Step 2
+    customerName: "",
+    contact: "",
+    password: "",
+    tone: "رومانسي",
+    colors: "بنفسجي/أزرق",
+    delivery: "عادي",
+    notes: "",
+    // Step 3
+    pagesCount: 1,
+    pages: [], // per page config
+    // global assets
+    includePhotos: true,
+    includeVideos: true,
+    includeSongs: true,
+    photosCount: 10,
+    videosCount: 2,
+    songsCount: 1
+  };
+
+  const OCCASIONS = [
+    { key:"عيد ميلاد", icon:"fa-cake-candles", hint:"مفاجأة لطيفة + رسالة + ذكريات" },
+    { key:"ذكرى", icon:"fa-infinity", hint:"تايم لاين + لحظاتكم المميزة" },
+    { key:"صُلح", icon:"fa-heart-crack", hint:"رسالة اعتذار + صور جميلة" },
+    { key:"مناسبة خاصة", icon:"fa-gift", hint:"إنت تختار السيناريو" }
+  ];
+
+  function uid(){
+    return (Math.random().toString(16).slice(2) + Date.now().toString(16)).slice(0, 18);
+  }
+
+  function save(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }catch(e){}
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      Object.assign(state, data);
+      // ضمان pages array
+      ensurePages();
+    }catch(e){}
+  }
+  function toast(msg){
+    const t = document.getElementById("toast");
+    const txt = document.getElementById("toastText");
+    txt.textContent = msg;
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 1600);
+  }
+
+  function toggleTheme(){
+    document.body.classList.toggle("light-mode");
+    const icon = document.getElementById("theme-icon");
+    icon.className = document.body.classList.contains("light-mode") ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  }
+
+  // ========= صفحات =========
+  function makePage(i){
+    return {
+      id: uid(),
+      title: `الصفحة ${i+1}`,
+      includeIntro: i===0,            // الصفحة الأولى غالباً واجهة
+      includeMessage: true,
+      includeGallery: true,
+      includeVideoBlock: false,
+      includeMusicBlock: false,
+      messageText: "",
+      galleryCount: 6,
+      videoCount: 1,
+      musicCount: 1
+    };
+  }
+
+  function ensurePages(){
+    const n = Math.max(1, Math.min(4, Number(state.pagesCount || 1)));
+    state.pagesCount = n;
+
+    if(!Array.isArray(state.pages)) state.pages = [];
+    // push
+    while(state.pages.length < n){
+      state.pages.push(makePage(state.pages.length));
+    }
+    // trim
+    if(state.pages.length > n){
+      state.pages = state.pages.slice(0, n);
+    }
+  }
+
+  // ========= Rendering =========
+  const steps = [
+    { title: "اختيار المناسبة والفكرة", icon: "fa-sparkles" },
+    { title: "تفاصيل التصميم والخصوصية", icon: "fa-shield-heart" },
+    { title: "الصفحات والمحتوى", icon: "fa-layer-group" },
+    { title: "مراجعة وإرسال الطلب", icon: "fa-paper-plane" }
+  ];
+
+  function renderDots(){
+    const el = document.getElementById("dots");
+    el.innerHTML = "";
+    steps.forEach((s, i)=>{
+      const d = document.createElement("div");
+      d.className = "dot" + (i === state.step ? " active" : "") + (i < state.step ? " done" : "");
+      d.title = s.title;
+      el.appendChild(d);
+    });
+  }
+
+  function setProgressBar(){
+    const fill = document.getElementById("barFill");
+    const pct = Math.round(((state.step) / (steps.length-1)) * 100);
+    fill.style.width = pct + "%";
+  }
+
+  function render(){
+    ensurePages();
+    save();
+    renderDots();
+    setProgressBar();
+
+    const body = document.getElementById("cardBody");
+    body.scrollTop = 0;
+
+    if(state.step === 0) body.innerHTML = stepOccasion();
+    if(state.step === 1) body.innerHTML = stepDetails();
+    if(state.step === 2) body.innerHTML = stepPages();
+    if(state.step === 3) body.innerHTML = stepReview();
+
+    renderFooter();
+    wireStepEvents();
+  }
+
+  function renderFooter(){
+    const f = document.getElementById("footerActions");
+    const isFirst = state.step === 0;
+    const isLast = state.step === steps.length-1;
+
+    if(!isLast){
+      f.innerHTML = `
+        <button class="btn ghost ${isFirst ? "disabled" : ""}" onclick="prevStep()">
+          <i class="fa-solid fa-arrow-right"></i> رجوع
+        </button>
+        <button class="btn primary" onclick="nextStep()">
+          التالي <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      `;
+    } else {
+      f.innerHTML = `
+        <a class="btn whatsapp" id="waBtn" href="#" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> افتح واتساب برسالة جاهزة
+        </a>
+        <button class="btn success" onclick="finishAndShowSuccess()">
+          <i class="fa-solid fa-check-double"></i> تأكيد إنشاء الطلب
+        </button>
+        <button class="btn ghost" onclick="prevStep()">
+          <i class="fa-solid fa-arrow-right"></i> تعديل
+        </button>
+      `;
+      updateWhatsAppLink();
+    }
+  }
+
+  // ========= Step Templates =========
+  function stepOccasion(){
+    return `
+      <div class="grid">
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-calendar-heart"></i> اختار المناسبة <span class="req">*</span></h2>
+          </div>
+          <p class="hint">اختيار المناسبة بيساعدنا نطلع الإحساس الصح في التصميم (ألوان/أنيميشن/ستايل).</p>
+
+          <div class="chips" id="occasionChips">
+            ${OCCASIONS.map(o => `
+              <div class="chip ${state.occasion === o.key ? "active" : ""}" data-occasion="${o.key}">
+                <div class="l">
+                  <div class="ic"><i class="fa-solid ${o.icon}"></i></div>
+                  <div>
+                    <b>${o.key}</b>
+                    <small>${o.hint}</small>
+                  </div>
+                </div>
+                <div class="r"><i class="fa-solid fa-chevron-left"></i></div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div style="margin-top:10px" class="row">
+            <div class="field">
+              <label>لو عندك فكرة خاصة (اختياري)</label>
+              <textarea id="customIdea" placeholder="مثال: عايز الصفحة الأولى تبقى اسم بينوّر + زر يفتح الرسالة + صور بتتحرك...">${escapeHtml(state.customIdea||"")}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-user-heart"></i> مين هتدي الهدية لمين؟</h2>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>نوع المستلم</label>
+              <select id="receiverType">
+                ${["حبيبتي/حبيبي","زوجتي/زوجي","صاحبي/صاحبتي","أختي/أخويا","حد قريب"].map(v=>`
+                  <option value="${v}" ${state.receiverType===v?"selected":""}>${v}</option>
+                `).join("")}
+              </select>
+            </div>
+            <div class="field">
+              <label>الستايل العام</label>
+              <select id="tone">
+                ${["رومانسي","فخم","كيوت","ضحك وهزار","هادئ"].map(v=>`
+                  <option value="${v}" ${state.tone===v?"selected":""}>${v}</option>
+                `).join("")}
+              </select>
+            </div>
+          </div>
+
+          <div class="divider">نقطة قوة</div>
+
+          <div class="social-proof">
+            <div class="stat">
+              <b>🔒</b>
+              <span>خصوصية & باسورد</span>
+            </div>
+            <div class="stat">
+              <b>⚡</b>
+              <span>تسليم سريع</span>
+            </div>
+            <div class="stat">
+              <b>✨</b>
+              <span>تصميم مبهر</span>
+            </div>
+          </div>
+        </div>
+
+        ${renderSummaryBox()}
+
+      </div>
+    `;
+  }
+
+  function stepDetails(){
+    return `
+      <div class="grid">
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-shield-heart"></i> خصوصية وبيانات أساسية <span class="req">*</span></h2>
+          </div>
+          <p class="hint">دي بيانات داخلية عشان نتابع معاك، وكمان باسورد الموقع.</p>
+
+          <div class="row">
+            <div class="field">
+              <label>اسمك (للتواصل) <span class="req">*</span></label>
+              <input id="customerName" placeholder="اكتب اسمك" value="${escapeAttr(state.customerName||"")}" />
+            </div>
+            <div class="field">
+              <label>رقم/يوزر للتواصل (واتساب/تيليجرام) <span class="req">*</span></label>
+              <input id="contact" placeholder="مثال: 01xxxxxxxxx أو @username" value="${escapeAttr(state.contact||"")}" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>الباسورد اللي هيفتح الموقع <span class="req">*</span></label>
+              <input id="password" placeholder="مثال: 20/1/2002 أو كلمة" value="${escapeAttr(state.password||"")}" />
+              <p class="hint" style="margin-top:8px">نصيحة: اختار باسورد سهل عليكم وصعب على أي حد تاني.</p>
+            </div>
+            <div class="field">
+              <label>الألوان/الثيم (اختياري)</label>
+              <input id="colors" placeholder="مثال: أسود/ذهبي أو بنفسجي/أزرق" value="${escapeAttr(state.colors||"")}" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>ملاحظات إضافية (اختياري)</label>
+              <textarea id="notes" placeholder="أي تفاصيل مهمة: أسماء، تاريخ مهم، جملة معينة، ستايل تفضله...">${escapeHtml(state.notes||"")}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-truck-fast"></i> سرعة التنفيذ</h2>
+          </div>
+          <p class="hint">اختيار السرعة يساعدنا نرتب الأولويات. (التسعير/الاتفاق النهائي بيكون في الواتساب).</p>
+
+          <div class="chips" id="deliveryChips">
+            ${["عادي","مستعجل","نهائي + تدقيق"].map(v => `
+              <div class="chip ${state.delivery===v ? "active" : ""}" data-delivery="${v}">
+                <div class="l">
+                  <div class="ic"><i class="fa-solid ${v==="عادي" ? "fa-stopwatch" : v==="مستعجل" ? "fa-bolt" : "fa-badge-check"}"></i></div>
+                  <div>
+                    <b>${v}</b>
+                    <small>${v==="عادي" ? "التسليم حسب الدور" : v==="مستعجل" ? "أولوية أعلى" : "تفاصيل ولوك نهائي"} </small>
+                  </div>
+                </div>
+                <div class="r"><i class="fa-solid fa-chevron-left"></i></div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        ${renderSummaryBox()}
+
+      </div>
+    `;
+  }
+
+  function stepPages(){
+    return `
+      <div class="grid">
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-layer-group"></i> عدد الصفحات <span class="req">*</span></h2>
+            <span class="pill">من 1 إلى 4 صفحات</span>
+          </div>
+          <p class="hint">اختار عدد الصفحات اللي محتاجه — وبعدها ظبط محتوى كل صفحة.</p>
+
+          <div class="row">
+            <div class="field">
+              <label>عدد الصفحات</label>
+              <select id="pagesCount">
+                ${[1,2,3,4].map(n=>`
+                  <option value="${n}" ${state.pagesCount===n?"selected":""}>${n} صفحة</option>
+                `).join("")}
+              </select>
+            </div>
+            <div class="field">
+              <label>عنوان عام (اختياري)</label>
+              <input id="globalTitle" placeholder="مثال: Our Story / حكايتنا" value="${escapeAttr(state.globalTitle||"")}" />
+            </div>
+          </div>
+
+          <div class="divider">محتوى عام</div>
+
+          <div class="row">
+            ${toggleBlock("includePhotos","fa-images","صور", "صور الذكريات")}
+            ${toggleBlock("includeVideos","fa-video","فيديو", "مقاطع قصيرة/فيديوهات")}
+            ${toggleBlock("includeSongs","fa-music","أغاني", "أغاني/موسيقى")}
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            ${counterBlock("photosCount","fa-image","عدد الصور", 0, 200)}
+            ${counterBlock("videosCount","fa-film","عدد الفيديو", 0, 40)}
+            ${counterBlock("songsCount","fa-headphones","عدد الأغاني", 0, 20)}
+          </div>
+
+          <p class="hint" style="margin-top:10px">لو مش هتستخدم نوع معين (صور/فيديو/أغاني)، اقفله من الزر فوق.</p>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-file-lines"></i> تفاصيل كل صفحة</h2>
+            <span class="pill">اختيارات ذكية</span>
+          </div>
+          <p class="hint">هنا بتحدد: الصفحة فيها رسالة؟ جاليري؟ فيديو؟ موسيقى؟ وكمان أعداد كل نوع داخل الصفحة.</p>
+
+          <div class="pages-grid" id="pagesGrid">
+            ${state.pages.map((p, i)=>pageCard(p, i)).join("")}
+          </div>
+        </div>
+
+        ${renderSummaryBox()}
+
+      </div>
+    `;
+  }
+
+  function stepReview(){
+    const checklist = buildAssetsChecklist();
+    return `
+      <div class="grid">
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-clipboard-check"></i> مراجعة الطلب</h2>
+            <span class="pill">قبل الإرسال</span>
+          </div>
+
+          ${renderSummaryBox(true)}
+
+          <div class="divider">هتحتاج تبعت لنا</div>
+
+          <div class="summary" style="border-color:rgba(6,182,212,.48);background:rgba(6,182,212,.06)">
+            <h3><i class="fa-solid fa-inbox"></i> قائمة الملفات المطلوبة</h3>
+            <ul class="sum-list">
+              ${checklist.length ? checklist.map(x=>`<li>${x}</li>`).join("") : `<li class="sum-muted">مفيش ملفات مطلوبة — ده طلب نصي بسيط.</li>`}
+            </ul>
+            <p class="hint" style="margin-top:10px">بعد ما تبعت الطلب، هنقولك تبعت الملفات على الواتساب (صور/فيديو/أغاني) بالترتيب.</p>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-circle-question"></i> أسئلة بتتكرر</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>اللينك بيفضل قد إيه؟ <i class="fa-solid fa-chevron-down"></i></summary>
+              <p>اللينك بيكون ثابت قدر الإمكان، وممكن يبقى على Vercel/Domain. التفاصيل بنثبتها معاك وقت التسليم.</p>
+            </details>
+            <details>
+              <summary>ينفع تعديل بعد التسليم؟ <i class="fa-solid fa-chevron-down"></i></summary>
+              <p>أيوه — بنشتغل بنظام تعديلات، وأنت بتقولنا اللي عايزه لحد ما توصل للشكل اللي يبهرك.</p>
+            </details>
+            <details>
+              <summary>الخصوصية إزاي؟ <i class="fa-solid fa-chevron-down"></i></summary>
+              <p>باسورد + صفحات مش ظاهرة لمحركات البحث حسب الاتفاق. تقدر تخليها Private بالكامل.</p>
+            </details>
+            <details>
+              <summary>هتستلم إيه في الآخر؟ <i class="fa-solid fa-chevron-down"></i></summary>
+              <p>لينك نهائي + باسورد + تجربة تصميم كاملة، وتقدر تبعته كهدية فوراً.</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-shield"></i> تأكيد واطمئنان</h2>
+          </div>
+          <p class="hint">بعد ما تضغط “تأكيد إنشاء الطلب”، هتظهرلك رسالة جاهزة للواتساب + نسخة نصية تقدر تنسخها.</p>
+
+          <div class="social-proof">
+            <div class="stat"><b>🧠</b><span>نظبطها على ذوقك</span></div>
+            <div class="stat"><b>🎨</b><span>ستايل مبهر</span></div>
+            <div class="stat"><b>🔐</b><span>خصوصية كاملة</span></div>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }
+
+  function toggleBlock(key, icon, title, subtitle){
+    const on = !!state[key];
+    return `
+      <div class="field" style="flex:1 1 180px;min-width:180px">
+        <div class="toggle" data-toggle="${key}">
+          <div class="t">
+            <i class="fa-solid ${icon}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${title}</div>
+              <div class="hint" style="margin:2px 0 0">${subtitle}</div>
+            </div>
+          </div>
+          <div class="switch ${on ? "on" : ""}" role="switch" aria-checked="${on}"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function counterBlock(key, icon, title, min, max){
+    const v = Number(state[key] ?? 0);
+    return `
+      <div class="field" style="flex:1 1 180px;min-width:180px">
+        <div class="counter" data-counter="${key}" data-min="${min}" data-max="${max}">
+          <div class="c-l">
+            <i class="fa-solid ${icon}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${title}</div>
+              <div class="hint" style="margin:2px 0 0">من ${min} إلى ${max}</div>
+            </div>
+          </div>
+          <div class="ctr">
+            <button type="button" data-act="dec">−</button>
+            <input type="number" inputmode="numeric" value="${v}" />
+            <button type="button" data-act="inc">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function pageCard(p, i){
+    const flags = [];
+    if(p.includeIntro) flags.push("واجهة");
+    if(p.includeMessage) flags.push("رسالة");
+    if(p.includeGallery) flags.push("صور");
+    if(p.includeVideoBlock) flags.push("فيديو");
+    if(p.includeMusicBlock) flags.push("موسيقى");
+
+    return `
+      <div class="page-card" data-page-index="${i}">
+        <div class="page-head">
+          <b><span class="num">${i+1}</span> ${escapeHtml(p.title || ("الصفحة " + (i+1)))}</b>
+          <div class="page-tools">
+            <span class="pill">${flags.length ? flags.join(" • ") : "فارغة"}</span>
+          </div>
+        </div>
+
+        <div class="page-options">
+          <div class="row">
+            <div class="field">
+              <label>عنوان الصفحة (اختياري)</label>
+              <input data-p="title" placeholder="مثال: البداية / الذكرى / الرسالة..." value="${escapeAttr(p.title||"")}" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field" style="flex:1 1 200px;min-width:200px">
+              <div class="toggle" data-page-toggle="includeIntro">
+                <div class="t">
+                  <i class="fa-solid fa-star"></i>
+                  <div>
+                    <div style="font-weight:1000;font-size:12px">واجهة (Intro)</div>
+                    <div class="hint" style="margin:2px 0 0">اسم بينوّر / أنيميشن / زر يبدأ</div>
+                  </div>
+                </div>
+                <div class="switch ${p.includeIntro ? "on" : ""}"></div>
+              </div>
+            </div>
+
+            <div class="field" style="flex:1 1 200px;min-width:200px">
+              <div class="toggle" data-page-toggle="includeMessage">
+                <div class="t">
+                  <i class="fa-solid fa-feather-pointed"></i>
+                  <div>
+                    <div style="font-weight:1000;font-size:12px">رسالة</div>
+                    <div class="hint" style="margin:2px 0 0">رسالة من القلب</div>
+                  </div>
+                </div>
+                <div class="switch ${p.includeMessage ? "on" : ""}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field" style="flex:1 1 200px;min-width:200px">
+              <div class="toggle" data-page-toggle="includeGallery">
+                <div class="t">
+                  <i class="fa-solid fa-images"></i>
+                  <div>
+                    <div style="font-weight:1000;font-size:12px">صور داخل الصفحة</div>
+                    <div class="hint" style="margin:2px 0 0">جاليري / سلايدر</div>
+                  </div>
+                </div>
+                <div class="switch ${p.includeGallery ? "on" : ""}"></div>
+              </div>
+            </div>
+
+            <div class="field" style="flex:1 1 200px;min-width:200px">
+              <div class="toggle" data-page-toggle="includeVideoBlock">
+                <div class="t">
+                  <i class="fa-solid fa-video"></i>
+                  <div>
+                    <div style="font-weight:1000;font-size:12px">فيديو داخل الصفحة</div>
+                    <div class="hint" style="margin:2px 0 0">مقاطع مميزة</div>
+                  </div>
+                </div>
+                <div class="switch ${p.includeVideoBlock ? "on" : ""}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field" style="flex:1 1 200px;min-width:200px">
+              <div class="toggle" data-page-toggle="includeMusicBlock">
+                <div class="t">
+                  <i class="fa-solid fa-music"></i>
+                  <div>
+                    <div style="font-weight:1000;font-size:12px">موسيقى داخل الصفحة</div>
+                    <div class="hint" style="margin:2px 0 0">تشغيل أغنية/موسيقى</div>
+                  </div>
+                </div>
+                <div class="switch ${p.includeMusicBlock ? "on" : ""}"></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>رسالة الصفحة (اختياري)</label>
+              <textarea data-p="messageText" placeholder="اكتب نص الرسالة اللي تحب يظهر...">${escapeHtml(p.messageText||"")}</textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            ${pageCounter("galleryCount","fa-image","صور في الصفحة", p.includeGallery, p.galleryCount, 0, 60)}
+            ${pageCounter("videoCount","fa-film","فيديو في الصفحة", p.includeVideoBlock, p.videoCount, 0, 10)}
+            ${pageCounter("musicCount","fa-headphones","أغاني في الصفحة", p.includeMusicBlock, p.musicCount, 0, 10)}
+          </div>
+
+          <p class="hint" style="margin:8px 0 0">ملحوظة: الأعداد دي لتسهيل التنظيم — هنطلب منك تبعت الملفات على الواتساب بعد الطلب.</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function pageCounter(key, icon, title, enabled, value, min, max){
+    return `
+      <div class="field" style="flex:1 1 180px;min-width:180px;opacity:${enabled?1:.55}">
+        <div class="counter" data-page-counter="${key}" data-min="${min}" data-max="${max}" ${enabled? "" : "data-disabled='1'"}>
+          <div class="c-l">
+            <i class="fa-solid ${icon}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${title}</div>
+              <div class="hint" style="margin:2px 0 0">من ${min} إلى ${max}</div>
+            </div>
+          </div>
+          <div class="ctr">
+            <button type="button" data-act="dec">−</button>
+            <input type="number" inputmode="numeric" value="${Number(value||0)}" />
+            <button type="button" data-act="inc">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderSummaryBox(forceFull=false){
+    const sum = buildSummary(forceFull);
+    return `
+      <div class="summary">
+        <h3><i class="fa-solid fa-bolt"></i> ملخص الطلب</h3>
+        <ul class="sum-list">
+          ${sum.map(x=>`<li>${x}</li>`).join("")}
+        </ul>
+      </div>
+    `;
+  }
+
+  function buildSummary(full=false){
+    const lines = [];
+    const occ = state.occasion ? `المناسبة: <b>${escapeHtml(state.occasion)}</b>` : `<span class="sum-muted">المناسبة: لم يتم الاختيار</span>`;
+    lines.push(occ);
+
+    if(state.customIdea){
+      lines.push(`فكرة خاصة: <b>${escapeHtml(shorten(state.customIdea, 80))}</b>`);
+    }else{
+      lines.push(`<span class="sum-muted">فكرة خاصة: (اختياري)</span>`);
+    }
+
+    lines.push(`الستايل: <b>${escapeHtml(state.tone||"")}</b> — المستلم: <b>${escapeHtml(state.receiverType||"")}</b>`);
+    if(full || state.step >= 1){
+      lines.push(`اسمك: <b>${escapeHtml(state.customerName||"—")}</b> — تواصل: <b>${escapeHtml(state.contact||"—")}</b>`);
+      lines.push(`الباسورد: <b>${escapeHtml(state.password ? "••••••" : "—")}</b>`);
+      if(state.colors) lines.push(`الثيم/الألوان: <b>${escapeHtml(state.colors)}</b>`);
+      lines.push(`سرعة التنفيذ: <b>${escapeHtml(state.delivery||"")}</b>`);
+    }
+
+    if(full || state.step >= 2){
+      lines.push(`عدد الصفحات: <b>${state.pagesCount}</b>`);
+      const g = [];
+      if(state.includePhotos) g.push(`صور (${state.photosCount})`);
+      if(state.includeVideos) g.push(`فيديو (${state.videosCount})`);
+      if(state.includeSongs) g.push(`أغاني (${state.songsCount})`);
+      lines.push(`ملفات عامة: <b>${g.length ? g.join(" • ") : "بدون"}</b>`);
+      lines.push(`تفاصيل الصفحات: <b>${state.pages.map((p,i)=> pageFlagsText(p,i)).join(" | ")}</b>`);
+    }
+
+    if(full || state.step >= 1){
+      if(state.notes) lines.push(`ملاحظات: <b>${escapeHtml(shorten(state.notes, 90))}</b>`);
+    }
+    return lines;
+  }
+
+  function pageFlagsText(p, i){
+    const f = [];
+    if(p.includeIntro) f.push("واجهة");
+    if(p.includeMessage) f.push("رسالة");
+    if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
+    if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
+    if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
+    return `#${i+1}: ${f.length? f.join(", ") : "—"}`;
+  }
+
+  function buildAssetsChecklist(){
+    const items = [];
+    const photos = state.includePhotos ? (Number(state.photosCount||0)) : 0;
+    const videos = state.includeVideos ? (Number(state.videosCount||0)) : 0;
+    const songs  = state.includeSongs  ? (Number(state.songsCount||0))  : 0;
+
+    if(photos>0) items.push(`📸 صور: ${photos} (أبعتهم بالترتيب المطلوب / أسماء واضحة)`);
+    if(videos>0) items.push(`🎥 فيديو: ${videos} (يفضل روابط Drive أو ملفات مضغوطة لو حجم كبير)`);
+    if(songs>0)  items.push(`🎵 أغاني/موسيقى: ${songs} (اسم الأغنية أو ملف mp3/رابط)`);
+    // per page extras (لو في اختلاف)
+    const pageNotes = [];
+    state.pages.forEach((p,i)=>{
+      const a = [];
+      if(p.includeGallery && Number(p.galleryCount||0)>0) a.push(`صور(${p.galleryCount})`);
+      if(p.includeVideoBlock && Number(p.videoCount||0)>0) a.push(`فيديو(${p.videoCount})`);
+      if(p.includeMusicBlock && Number(p.musicCount||0)>0) a.push(`موسيقى(${p.musicCount})`);
+      if(a.length) pageNotes.push(`صفحة ${i+1}: ${a.join(" / ")}`);
+    });
+    if(pageNotes.length) items.push(`🧩 توزيع الملفات حسب الصفحات: ${pageNotes.join(" — ")}`);
+    return items;
+  }
+
+  // ========= Events wiring =========
+  function wireStepEvents(){
+    // Step 1: occasion chips
+    const occWrap = document.getElementById("occasionChips");
+    if(occWrap){
+      occWrap.querySelectorAll(".chip").forEach(ch=>{
+        ch.addEventListener("click", ()=>{
+          state.occasion = ch.getAttribute("data-occasion");
+          render();
+        });
+      });
+    }
+
+    // Step 1 fields
+    const customIdea = document.getElementById("customIdea");
+    if(customIdea){
+      customIdea.addEventListener("input", (e)=>{ state.customIdea = e.target.value; save(); });
+    }
+    const receiverType = document.getElementById("receiverType");
+    if(receiverType){
+      receiverType.addEventListener("change", (e)=>{ state.receiverType = e.target.value; renderSummaryOnly(); });
+    }
+    const tone = document.getElementById("tone");
+    if(tone){
+      tone.addEventListener("change", (e)=>{ state.tone = e.target.value; renderSummaryOnly(); });
+    }
+
+    // Step 2 chips + inputs
+    const delWrap = document.getElementById("deliveryChips");
+    if(delWrap){
+      delWrap.querySelectorAll(".chip").forEach(ch=>{
+        ch.addEventListener("click", ()=>{
+          state.delivery = ch.getAttribute("data-delivery");
+          render();
+        });
+      });
+    }
+
+    bindInput("customerName");
+    bindInput("contact");
+    bindInput("password");
+    bindInput("colors");
+    bindTextarea("notes");
+
+    // Step 3 global
+    const pagesCount = document.getElementById("pagesCount");
+    if(pagesCount){
+      pagesCount.addEventListener("change", (e)=>{
+        state.pagesCount = Number(e.target.value);
+        ensurePages();
+        render();
+      });
+    }
+    const globalTitle = document.getElementById("globalTitle");
+    if(globalTitle){
+      globalTitle.addEventListener("input", (e)=>{
+        state.globalTitle = e.target.value;
+        save();
+      });
+    }
+
+    // toggles
+    document.querySelectorAll("[data-toggle]").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        const key = el.getAttribute("data-toggle");
+        state[key] = !state[key];
+        // لو اتقفل نوع — نخفض العداد لنفسه 0
+        if(!state[key]){
+          if(key === "includePhotos") state.photosCount = 0;
+          if(key === "includeVideos") state.videosCount = 0;
+          if(key === "includeSongs")  state.songsCount = 0;
+        } else {
+          // restore minimal default
+          if(key === "includePhotos" && state.photosCount===0) state.photosCount = 10;
+          if(key === "includeVideos" && state.videosCount===0) state.videosCount = 2;
+          if(key === "includeSongs"  && state.songsCount===0)  state.songsCount = 1;
+        }
+        render();
+      });
+    });
+
+    // counters (global)
+    document.querySelectorAll("[data-counter]").forEach(box=>{
+      const key = box.getAttribute("data-counter");
+      const min = Number(box.getAttribute("data-min"));
+      const max = Number(box.getAttribute("data-max"));
+      const input = box.querySelector("input");
+      const dec = box.querySelector("[data-act='dec']");
+      const inc = box.querySelector("[data-act='inc']");
+
+      const clamp = (v)=> Math.max(min, Math.min(max, v));
+
+      function setVal(v){
+        v = clamp(Number(v||0));
+        state[key] = v;
+        input.value = v;
+        save();
+        renderSummaryOnly();
+      }
+
+      dec.addEventListener("click", ()=>{
+        setVal(Number(input.value||0) - 1);
+      });
+      inc.addEventListener("click", ()=>{
+        setVal(Number(input.value||0) + 1);
+      });
+      input.addEventListener("input", ()=>{
+        setVal(input.value);
+      });
+      input.addEventListener("blur", ()=>{
+        setVal(input.value);
+      });
+    });
+
+    // pages per page
+    document.querySelectorAll(".page-card").forEach(card=>{
+      const idx = Number(card.getAttribute("data-page-index"));
+      const page = state.pages[idx];
+      if(!page) return;
+
+      // title + message
+      card.querySelectorAll("[data-p]").forEach(inp=>{
+        const key = inp.getAttribute("data-p");
+        inp.addEventListener("input", (e)=>{
+          page[key] = e.target.value;
+          save();
+          renderSummaryOnly();
+        });
+      });
+
+      // toggles inside page
+      card.querySelectorAll("[data-page-toggle]").forEach(t=>{
+        const key = t.getAttribute("data-page-toggle");
+        t.addEventListener("click", ()=>{
+          page[key] = !page[key];
+          // لو اتقفل بلوك — صفر عداده
+          if(key === "includeGallery" && !page.includeGallery) page.galleryCount = 0;
+          if(key === "includeVideoBlock" && !page.includeVideoBlock) page.videoCount = 0;
+          if(key === "includeMusicBlock" && !page.includeMusicBlock) page.musicCount = 0;
+          // لو اتفتح — رجع حد أدنى
+          if(key === "includeGallery" && page.includeGallery && page.galleryCount===0) page.galleryCount = 6;
+          if(key === "includeVideoBlock" && page.includeVideoBlock && page.videoCount===0) page.videoCount = 1;
+          if(key === "includeMusicBlock" && page.includeMusicBlock && page.musicCount===0) page.musicCount = 1;
+          render();
+        });
+      });
+
+      // counters inside page
+      card.querySelectorAll("[data-page-counter]").forEach(box=>{
+        const key = box.getAttribute("data-page-counter");
+        const min = Number(box.getAttribute("data-min"));
+        const max = Number(box.getAttribute("data-max"));
+        const disabled = box.getAttribute("data-disabled")==="1";
+        const input = box.querySelector("input");
+        const dec = box.querySelector("[data-act='dec']");
+        const inc = box.querySelector("[data-act='inc']");
+
+        const clamp = (v)=> Math.max(min, Math.min(max, v));
+
+        function setVal(v){
+          if(disabled) return;
+          v = clamp(Number(v||0));
+          page[key] = v;
+          input.value = v;
+          save();
+          renderSummaryOnly();
+        }
+
+        dec.addEventListener("click", ()=> setVal(Number(input.value||0)-1));
+        inc.addEventListener("click", ()=> setVal(Number(input.value||0)+1));
+        input.addEventListener("input", ()=> setVal(input.value));
+        input.addEventListener("blur", ()=> setVal(input.value));
+      });
+    });
+
+    // after review: wa link
+    if(state.step === 3){
+      updateWhatsAppLink();
+    }
+  }
+
+  function bindInput(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("input", (e)=>{
+      state[id] = e.target.value;
+      save();
+      renderSummaryOnly();
+    });
+  }
+  function bindTextarea(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("input", (e)=>{
+      state[id] = e.target.value;
+      save();
+      renderSummaryOnly();
+    });
+  }
+
+  // ========= Navigation + Validation =========
+  function prevStep(){
+    state.step = Math.max(0, state.step - 1);
+    render();
+  }
+
+  function nextStep(){
+    // validate current
+    const ok = validateStep(state.step);
+    if(!ok) return;
+    state.step = Math.min(steps.length-1, state.step + 1);
+    render();
+  }
+
+  function validateStep(step){
+    clearErrors();
+
+    if(step === 0){
+      if(!state.occasion){
+        toast("اختار المناسبة الأول");
+        // highlight chips
+        const occWrap = document.getElementById("occasionChips");
+        if(occWrap) occWrap.scrollIntoView({behavior:"smooth", block:"center"});
+        return false;
+      }
+      return true;
+    }
+
+    if(step === 1){
+      let ok = true;
+      ok = req("customerName") && ok;
+      ok = req("contact") && ok;
+      ok = req("password") && ok;
+      if(!ok) toast("كمّل البيانات المطلوبة");
+      return ok;
+    }
+
+    if(step === 2){
+      // pages already ensured
+      if(state.pagesCount < 1 || state.pagesCount > 4){
+        toast("اختار عدد صفحات صحيح");
+        return false;
+      }
+      return true;
+    }
+    return true;
+  }
+
+  function req(id){
+    const v = (state[id]||"").trim();
+    const el = document.getElementById(id);
+    if(!v){
+      if(el) el.classList.add("error");
+      return false;
+    }
+    return true;
+  }
+
+  function clearErrors(){
+    document.querySelectorAll(".error").forEach(e=>e.classList.remove("error"));
+  }
+
+  // ========= WhatsApp Message =========
+  function buildWhatsAppText(){
+    const orderId = "HL-" + uid().toUpperCase().slice(0,8);
+    const dt = new Date();
+    const when = dt.toLocaleString("ar-EG");
+
+    const lines = [];
+    lines.push("✨ *طلب جديد من HeartLink (Order Builder)*");
+    lines.push(`🧾 *Order ID:* ${orderId}`);
+    lines.push(`🕒 *التاريخ:* ${when}`);
+    lines.push("");
+    lines.push(`🎉 *المناسبة:* ${state.occasion || "—"}`);
+    lines.push(`👤 *المستلم:* ${state.receiverType || "—"}`);
+    lines.push(`🎨 *الستايل:* ${state.tone || "—"}`);
+    if(state.customIdea) lines.push(`💡 *فكرة خاصة:* ${sanitizeForWA(shorten(state.customIdea, 220))}`);
+
+    lines.push("");
+    lines.push("🔐 *الخصوصية*");
+    lines.push(`• باسورد الموقع: ${state.password || "—"}`);
+    if(state.colors) lines.push(`• ثيم/ألوان: ${state.colors}`);
+    lines.push(`• سرعة التنفيذ: ${state.delivery || "—"}`);
+
+    lines.push("");
+    lines.push("📌 *بيانات التواصل*");
+    lines.push(`• الاسم: ${state.customerName || "—"}`);
+    lines.push(`• التواصل: ${state.contact || "—"}`);
+
+    lines.push("");
+    lines.push(`📄 *عدد الصفحات:* ${state.pagesCount}`);
+    state.pages.forEach((p,i)=>{
+      const f = [];
+      if(p.includeIntro) f.push("واجهة");
+      if(p.includeMessage) f.push("رسالة");
+      if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
+      if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
+      if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
+      const title = (p.title||`الصفحة ${i+1}`).trim();
+      lines.push(`• صفحة ${i+1} (${title}): ${f.length?f.join(" / "):"—"}`);
+      if(p.includeMessage && p.messageText){
+        lines.push(`  - نص رسالة الصفحة: ${sanitizeForWA(shorten(p.messageText, 180))}`);
+      }
+    });
+
+    lines.push("");
+    lines.push("📦 *ملفات هتبعتها*");
+    const checklist = buildAssetsChecklist();
+    if(checklist.length){
+      checklist.forEach(x=>lines.push("• " + sanitizeForWA(x)));
+    }else{
+      lines.push("• لا يوجد ملفات (طلب نصي بسيط).");
+    }
+
+    if(state.notes){
+      lines.push("");
+      lines.push("📝 *ملاحظات إضافية*");
+      lines.push(sanitizeForWA(shorten(state.notes, 260)));
+    }
+
+    lines.push("");
+    lines.push("✅ *جاهز أبعت الملفات بعد ما تقولّي الترتيب المطلوب*");
+
+    return lines.join("\n");
+  }
+
+  function updateWhatsAppLink(){
+    const text = buildWhatsAppText();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const wa = document.getElementById("waBtn");
+    if(wa) wa.href = url;
+  }
+
+  // ========= Copy Summary =========
+  function copyOrderSummary(){
+    const text = stripHtml(buildSummary(true).map(x=>"- " + x).join("\n")) +
+      "\n\n" + "قائمة الملفات:\n" + buildAssetsChecklist().map(x=>"- " + x).join("\n");
+    navigator.clipboard.writeText(text).then(()=>toast("اتنسخ الملخص")).catch(()=>toast("انسخ يدويًا"));
+  }
+
+  function finishAndShowSuccess(){
+    const ok = validateStep(3);
+    if(!ok) return;
+
+    // success screen (inside body)
+    const body = document.getElementById("cardBody");
+    const waText = buildWhatsAppText();
+
+    body.innerHTML = `
+      <div class="success-screen animate__animated animate__fadeIn">
+        <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+        <h2 style="margin:0 0 8px;font-size:18px;font-weight:1000">تم إنشاء الطلب ✅</h2>
+        <p class="hint" style="margin:0 0 12px">دلوقتي تقدر تبعت الرسالة الجاهزة على الواتساب أو تنسخها.</p>
+
+        <div class="section" style="text-align:right">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-message"></i> رسالة جاهزة للواتساب</h2>
+          </div>
+          <textarea id="waTextArea" style="min-height:210px;direction:rtl" readonly>${escapeHtml(waText)}</textarea>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <a class="btn whatsapp" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> افتح واتساب
+            </a>
+            <button class="btn primary" onclick="copyWAText()">
+              <i class="fa-solid fa-copy"></i> نسخ الرسالة
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-list-check"></i> الخطوة الجاية</h2>
+          </div>
+          <p class="hint">بعد ما تبعت الرسالة، هنطلب منك الملفات (صور/فيديو/أغاني) بالترتيب المناسب لكل صفحة.</p>
+        </div>
+      </div>
+    `;
+
+    const f = document.getElementById("footerActions");
+    f.innerHTML = `
+      <button class="btn ghost" onclick="state.step=0;render()">
+        <i class="fa-solid fa-house"></i> طلب جديد
+      </button>
+      <button class="btn danger btn ghost" onclick="resetAll()">
+        <i class="fa-solid fa-trash"></i> مسح كل شيء
+      </button>
+    `;
+    save();
+    toast("جاهز للإرسال");
+  }
+
+  function copyWAText(){
+    const ta = document.getElementById("waTextArea");
+    if(!ta) return;
+    navigator.clipboard.writeText(ta.value).then(()=>toast("اتنسخت الرسالة")).catch(()=>toast("انسخ يدويًا"));
+  }
+
+  function resetAll(){
+    localStorage.removeItem(STORAGE_KEY);
+    // reset to defaults
+    Object.keys(state).forEach(k=>delete state[k]);
+    // re-init defaults
+    Object.assign(state, {
+      step:0,
+      occasion:"",
+      customIdea:"",
+      receiverType:"حبيبتي/حبيبي",
+      customerName:"",
+      contact:"",
+      password:"",
+      tone:"رومانسي",
+      colors:"بنفسجي/أزرق",
+      delivery:"عادي",
+      notes:"",
+      pagesCount:1,
+      pages:[],
+      includePhotos:true,
+      includeVideos:true,
+      includeSongs:true,
+      photosCount:10,
+      videosCount:2,
+      songsCount:1
+    });
+    ensurePages();
+    toast("تم المسح");
+    render();
+  }
+
+  // ========= Helpers =========
+  function shorten(s, n){
+    s = String(s||"").trim();
+    if(s.length <= n) return s;
+    return s.slice(0, n-1) + "…";
+  }
+  function escapeHtml(s){
+    return String(s||"")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+  function escapeAttr(s){ return escapeHtml(s); }
+  function stripHtml(html){
+    const d = document.createElement("div");
+    d.innerHTML = html;
+    return d.textContent || d.innerText || "";
+  }
+  function sanitizeForWA(s){
+    return String(s||"").replace(/\s+/g," ").trim();
+  }
+  function renderSummaryOnly(){
+    // تحديث سريع: نعيد رسم نفس الستيب عشان الملخص يتحدث بدون تعقيد
+    // (التصميم متماسك، والملخص بيتحدث في كل خطوة)
+    save();
+    const body = document.getElementById("cardBody");
+    if(state.step === 0) body.innerHTML = stepOccasion();
+    if(state.step === 1) body.innerHTML = stepDetails();
+    if(state.step === 2) body.innerHTML = stepPages();
+    if(state.step === 3) body.innerHTML = stepReview();
+    renderFooter();
+    wireStepEvents();
+  }
+
+  // ========= Start =========
+  load();
+  ensurePages();
+  render();
+</script>
+</body>
+</html>
