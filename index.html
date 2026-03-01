@@ -183,11 +183,17 @@
       font-weight:900;
       cursor:pointer;
       transition:.25s;
+      user-select:none;
     }
     .mini-btn i{opacity:.9}
     .mini-btn:active{transform:scale(.97)}
     .mini-btn.danger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
     .mini-btn.danger i{color:var(--danger)}
+    .mini-btn.disabled{
+      opacity:.55;
+      pointer-events:none;
+      filter:saturate(.6);
+    }
 
     .title-row{
       display:flex;align-items:center;justify-content:space-between;gap:10px
@@ -229,6 +235,9 @@
       scrollbar-width:none;
     }
     .card-body::-webkit-scrollbar{display:none}
+
+    .step-anim{will-change:transform, opacity}
+    .animate-fast{--animate-duration:.35s}
 
     .grid{
       display:grid;
@@ -356,6 +365,8 @@
       padding:12px 12px;border-radius:18px;
       border:1px solid var(--glass-border);
       background:rgba(255,255,255,.02);
+      cursor:pointer;
+      user-select:none;
     }
     .toggle .t{
       display:flex;align-items:center;gap:10px
@@ -372,7 +383,6 @@
       background:rgba(148,163,184,.20);
       border:1px solid var(--glass-border);
       position:relative;
-      cursor:pointer;
       transition:.25s;
       flex:0 0 auto;
     }
@@ -530,6 +540,7 @@
       transition:.25s;
       color:#fff;
       text-decoration:none;
+      user-select:none;
     }
     .btn:active{transform:scale(.97)}
     .btn.primary{
@@ -578,9 +589,7 @@
     .toast.show{display:flex;animation:fadeInUp .25s ease}
     .toast i{color:#ffd700}
 
-    .faq{
-      display:flex;flex-direction:column;gap:10px
-    }
+    .faq{display:flex;flex-direction:column;gap:10px}
     details{
       border:1px solid var(--glass-border);
       border-radius:18px;
@@ -621,10 +630,7 @@
     .stat b{display:block;font-size:13px;font-weight:1000}
     .stat span{display:block;font-size:9px;color:var(--text-dim);margin-top:2px;font-weight:900;letter-spacing:.4px}
 
-    .success-screen{
-      text-align:center;
-      padding:8px 2px;
-    }
+    .success-screen{text-align:center;padding:8px 2px}
     .success-icon{
       width:84px;height:84px;border-radius:50%;
       margin:4px auto 12px;
@@ -635,10 +641,7 @@
       animation:pulse 1.4s infinite ease-in-out;
     }
     .success-icon i{font-size:34px;color:var(--success)}
-    @keyframes pulse{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.06)}
-    }
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
     .footer-copyright-tag{
       position:fixed;
@@ -654,17 +657,9 @@
       letter-spacing:1px;
     }
 
-    @keyframes fadeInDown{
-      from{opacity:0;transform:translateY(-16px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-    @keyframes fadeInUp{
-      from{opacity:0;transform:translate(-50%, 12px)}
-      to{opacity:1;transform:translate(-50%, 0)}
-    }
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translate(-50%, 12px)}to{opacity:1;transform:translate(-50%, 0)}}
 
-    /* صغيرات */
-    .muted{color:var(--text-dim)}
     .req{color:#ffd700;font-weight:1000}
     .error{
       border-color:rgba(239,68,68,.55)!important;
@@ -699,10 +694,10 @@
           <div class="progress-row">
             <div class="step-dots" id="dots"></div>
             <div class="top-actions">
-              <button class="mini-btn" onclick="copyOrderSummary()" title="نسخ الملخص">
+              <button id="copyBtn" class="mini-btn" onclick="copyOrderSummary()" title="نسخ الملخص">
                 <i class="fa-solid fa-copy"></i><span>نسخ</span>
               </button>
-              <button class="mini-btn danger" onclick="resetAll()" title="إعادة ضبط">
+              <button id="resetBtn" class="mini-btn danger" onclick="resetAll()" title="مسح الكل">
                 <i class="fa-solid fa-rotate-left"></i><span>مسح</span>
               </button>
             </div>
@@ -720,33 +715,33 @@
           </div>
         </div>
 
-        <div class="card-body" id="cardBody">
-          <!-- steps render here -->
-        </div>
-
-        <div class="footer-actions" id="footerActions">
-          <!-- buttons render here -->
-        </div>
+        <div class="card-body step-anim" id="cardBody"></div>
+        <div class="footer-actions" id="footerActions"></div>
       </div>
     </div>
   </main>
 
   <div class="footer-copyright-tag">© 2026 HEARTLINK — ORDER EXPERIENCE</div>
-
   <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastText">تم</span></div>
 
 <script>
   // ========= إعدادات =========
-  const WHATSAPP_NUMBER = "201125674359"; // غيّر الرقم لو حبيت
-  const STORAGE_KEY = "heartlink_order_builder_v1";
+  const WHATSAPP_NUMBER = "201125674359";
+  const STORAGE_KEY = "heartlink_order_builder_v2";
+  const THEME_KEY = "heartlink_theme_mode"; // "light" | "dark"
 
-  // ========= حالة الطلب =========
+  // ========= State =========
   const state = {
     step: 0,
+    navDir: "next",
+    orderId: "",
+    createdAt: "",
+
     // Step 1
     occasion: "",
     customIdea: "",
     receiverType: "حبيبتي/حبيبي",
+
     // Step 2
     customerName: "",
     contact: "",
@@ -755,10 +750,13 @@
     colors: "بنفسجي/أزرق",
     delivery: "عادي",
     notes: "",
+
     // Step 3
     pagesCount: 1,
-    pages: [], // per page config
-    // global assets
+    pages: [],
+    globalTitle: "",
+
+    // Global assets
     includePhotos: true,
     includeVideos: true,
     includeSongs: true,
@@ -774,25 +772,36 @@
     { key:"مناسبة خاصة", icon:"fa-gift", hint:"إنت تختار السيناريو" }
   ];
 
+  const steps = [
+    { title: "اختيار المناسبة والفكرة" },
+    { title: "تفاصيل التصميم والخصوصية" },
+    { title: "الصفحات والمحتوى" },
+    { title: "مراجعة وإرسال الطلب" }
+  ];
+
+  // ========= Utils =========
   function uid(){
     return (Math.random().toString(16).slice(2) + Date.now().toString(16)).slice(0, 18);
   }
 
-  function save(){
-    try{
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }catch(e){}
+  function ensureMeta(){
+    if(!state.orderId) state.orderId = "HL-" + uid().toUpperCase().slice(0,8);
+    if(!state.createdAt) state.createdAt = new Date().toISOString();
   }
+
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
   function load(){
     try{
       const raw = localStorage.getItem(STORAGE_KEY);
       if(!raw) return;
       const data = JSON.parse(raw);
       Object.assign(state, data);
-      // ضمان pages array
-      ensurePages();
     }catch(e){}
   }
+
   function toast(msg){
     const t = document.getElementById("toast");
     const txt = document.getElementById("toastText");
@@ -801,18 +810,59 @@
     setTimeout(()=>t.classList.remove("show"), 1600);
   }
 
-  function toggleTheme(){
-    document.body.classList.toggle("light-mode");
-    const icon = document.getElementById("theme-icon");
-    icon.className = document.body.classList.contains("light-mode") ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  function escapeHtml(s){
+    return String(s||"")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+  function escapeAttr(s){ return escapeHtml(s); }
+
+  function shorten(s, n){
+    s = String(s||"").trim();
+    if(s.length <= n) return s;
+    return s.slice(0, n-1) + "…";
   }
 
-  // ========= صفحات =========
+  function stripHtml(html){
+    const d = document.createElement("div");
+    d.innerHTML = html;
+    return d.textContent || d.innerText || "";
+  }
+
+  function sanitizeForWA(s){
+    return String(s||"").replace(/\s+/g," ").trim();
+  }
+
+  // ========= Theme =========
+  function applyTheme(mode){
+    const isLight = mode === "light";
+    document.body.classList.toggle("light-mode", isLight);
+    const icon = document.getElementById("theme-icon");
+    icon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    try{ localStorage.setItem(THEME_KEY, mode); }catch(e){}
+  }
+  function toggleTheme(){
+    const isLight = document.body.classList.contains("light-mode");
+    applyTheme(isLight ? "dark" : "light");
+  }
+  function initTheme(){
+    try{
+      const saved = localStorage.getItem(THEME_KEY);
+      applyTheme(saved === "light" ? "light" : "dark");
+    }catch(e){
+      applyTheme("dark");
+    }
+  }
+
+  // ========= Pages =========
   function makePage(i){
     return {
       id: uid(),
       title: `الصفحة ${i+1}`,
-      includeIntro: i===0,            // الصفحة الأولى غالباً واجهة
+      includeIntro: i===0,
       includeMessage: true,
       includeGallery: true,
       includeVideoBlock: false,
@@ -829,24 +879,11 @@
     state.pagesCount = n;
 
     if(!Array.isArray(state.pages)) state.pages = [];
-    // push
-    while(state.pages.length < n){
-      state.pages.push(makePage(state.pages.length));
-    }
-    // trim
-    if(state.pages.length > n){
-      state.pages = state.pages.slice(0, n);
-    }
+    while(state.pages.length < n) state.pages.push(makePage(state.pages.length));
+    if(state.pages.length > n) state.pages = state.pages.slice(0, n);
   }
 
-  // ========= Rendering =========
-  const steps = [
-    { title: "اختيار المناسبة والفكرة", icon: "fa-sparkles" },
-    { title: "تفاصيل التصميم والخصوصية", icon: "fa-shield-heart" },
-    { title: "الصفحات والمحتوى", icon: "fa-layer-group" },
-    { title: "مراجعة وإرسال الطلب", icon: "fa-paper-plane" }
-  ];
-
+  // ========= Progress UI =========
   function renderDots(){
     const el = document.getElementById("dots");
     el.innerHTML = "";
@@ -860,13 +897,48 @@
 
   function setProgressBar(){
     const fill = document.getElementById("barFill");
-    const pct = Math.round(((state.step) / (steps.length-1)) * 100);
+    const pct = Math.round((state.step / (steps.length-1)) * 100);
     fill.style.width = pct + "%";
   }
 
+  function stepEnterAnimation(){
+    const body = document.getElementById("cardBody");
+    body.classList.remove("animate__animated","animate__fadeInLeft","animate__fadeInRight","animate-fast");
+    void body.offsetWidth;
+    body.classList.add("animate__animated","animate-fast");
+    body.classList.add(state.navDir === "next" ? "animate__fadeInRight" : "animate__fadeInLeft");
+  }
+
+  function hasAnyData(){
+    const keys = ["occasion","customIdea","customerName","contact","password","notes","globalTitle"];
+    if(keys.some(k => String(state[k]||"").trim())) return true;
+    if(state.pages?.some(p => String(p.title||"").trim() || String(p.messageText||"").trim())) return true;
+    if(Number(state.pagesCount||1) !== 1) return true;
+    // counts toggles
+    if(!state.includePhotos || !state.includeVideos || !state.includeSongs) return true;
+    if(Number(state.photosCount||0) !== 10) return true;
+    if(Number(state.videosCount||0) !== 2) return true;
+    if(Number(state.songsCount||0) !== 1) return true;
+    return false;
+  }
+
+  function updateTopButtons(){
+    const copyBtn = document.getElementById("copyBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const canCopy = hasAnyData(); // تقدر تغيّرها لو عايز شرط أقوى
+    copyBtn.classList.toggle("disabled", !canCopy);
+
+    const canReset = hasAnyData();
+    resetBtn.classList.toggle("disabled", !canReset);
+  }
+
+  // ========= Render =========
   function render(){
+    ensureMeta();
     ensurePages();
     save();
+
     renderDots();
     setProgressBar();
 
@@ -880,6 +952,8 @@
 
     renderFooter();
     wireStepEvents();
+    updateTopButtons();
+    stepEnterAnimation();
   }
 
   function renderFooter(){
@@ -916,7 +990,6 @@
   function stepOccasion(){
     return `
       <div class="grid">
-
         <div class="section">
           <div class="section-h">
             <h2><i class="fa-solid fa-calendar-heart"></i> اختار المناسبة <span class="req">*</span></h2>
@@ -971,25 +1044,14 @@
           </div>
 
           <div class="divider">نقطة قوة</div>
-
           <div class="social-proof">
-            <div class="stat">
-              <b>🔒</b>
-              <span>خصوصية & باسورد</span>
-            </div>
-            <div class="stat">
-              <b>⚡</b>
-              <span>تسليم سريع</span>
-            </div>
-            <div class="stat">
-              <b>✨</b>
-              <span>تصميم مبهر</span>
-            </div>
+            <div class="stat"><b>🔒</b><span>خصوصية & باسورد</span></div>
+            <div class="stat"><b>⚡</b><span>تسليم سريع</span></div>
+            <div class="stat"><b>✨</b><span>تصميم مبهر</span></div>
           </div>
         </div>
 
         ${renderSummaryBox()}
-
       </div>
     `;
   }
@@ -997,7 +1059,6 @@
   function stepDetails(){
     return `
       <div class="grid">
-
         <div class="section">
           <div class="section-h">
             <h2><i class="fa-solid fa-shield-heart"></i> خصوصية وبيانات أساسية <span class="req">*</span></h2>
@@ -1058,7 +1119,6 @@
         </div>
 
         ${renderSummaryBox()}
-
       </div>
     `;
   }
@@ -1066,7 +1126,6 @@
   function stepPages(){
     return `
       <div class="grid">
-
         <div class="section">
           <div class="section-h">
             <h2><i class="fa-solid fa-layer-group"></i> عدد الصفحات <span class="req">*</span></h2>
@@ -1079,7 +1138,7 @@
               <label>عدد الصفحات</label>
               <select id="pagesCount">
                 ${[1,2,3,4].map(n=>`
-                  <option value="${n}" ${state.pagesCount===n?"selected":""}>${n} صفحة</option>
+                  <option value="${n}" ${Number(state.pagesCount)===n?"selected":""}>${n} صفحة</option>
                 `).join("")}
               </select>
             </div>
@@ -1113,13 +1172,12 @@
           </div>
           <p class="hint">هنا بتحدد: الصفحة فيها رسالة؟ جاليري؟ فيديو؟ موسيقى؟ وكمان أعداد كل نوع داخل الصفحة.</p>
 
-          <div class="pages-grid" id="pagesGrid">
+          <div class="pages-grid">
             ${state.pages.map((p, i)=>pageCard(p, i)).join("")}
           </div>
         </div>
 
         ${renderSummaryBox()}
-
       </div>
     `;
   }
@@ -1128,7 +1186,6 @@
     const checklist = buildAssetsChecklist();
     return `
       <div class="grid">
-
         <div class="section">
           <div class="section-h">
             <h2><i class="fa-solid fa-clipboard-check"></i> مراجعة الطلب</h2>
@@ -1142,7 +1199,7 @@
           <div class="summary" style="border-color:rgba(6,182,212,.48);background:rgba(6,182,212,.06)">
             <h3><i class="fa-solid fa-inbox"></i> قائمة الملفات المطلوبة</h3>
             <ul class="sum-list">
-              ${checklist.length ? checklist.map(x=>`<li>${x}</li>`).join("") : `<li class="sum-muted">مفيش ملفات مطلوبة — ده طلب نصي بسيط.</li>`}
+              ${checklist.length ? checklist.map(x=>`<li>${escapeHtml(x)}</li>`).join("") : `<li class="sum-muted">مفيش ملفات مطلوبة — ده طلب نصي بسيط.</li>`}
             </ul>
             <p class="hint" style="margin-top:10px">بعد ما تبعت الطلب، هنقولك تبعت الملفات على الواتساب (صور/فيديو/أغاني) بالترتيب.</p>
           </div>
@@ -1171,24 +1228,11 @@
             </details>
           </div>
         </div>
-
-        <div class="section">
-          <div class="section-h">
-            <h2><i class="fa-solid fa-shield"></i> تأكيد واطمئنان</h2>
-          </div>
-          <p class="hint">بعد ما تضغط “تأكيد إنشاء الطلب”، هتظهرلك رسالة جاهزة للواتساب + نسخة نصية تقدر تنسخها.</p>
-
-          <div class="social-proof">
-            <div class="stat"><b>🧠</b><span>نظبطها على ذوقك</span></div>
-            <div class="stat"><b>🎨</b><span>ستايل مبهر</span></div>
-            <div class="stat"><b>🔐</b><span>خصوصية كاملة</span></div>
-          </div>
-        </div>
-
       </div>
     `;
   }
 
+  // ========= Components =========
   function toggleBlock(key, icon, title, subtitle){
     const on = !!state[key];
     return `
@@ -1229,114 +1273,18 @@
     `;
   }
 
-  function pageCard(p, i){
-    const flags = [];
-    if(p.includeIntro) flags.push("واجهة");
-    if(p.includeMessage) flags.push("رسالة");
-    if(p.includeGallery) flags.push("صور");
-    if(p.includeVideoBlock) flags.push("فيديو");
-    if(p.includeMusicBlock) flags.push("موسيقى");
-
+  function pageToggle(key, icon, title, subtitle, on){
     return `
-      <div class="page-card" data-page-index="${i}">
-        <div class="page-head">
-          <b><span class="num">${i+1}</span> ${escapeHtml(p.title || ("الصفحة " + (i+1)))}</b>
-          <div class="page-tools">
-            <span class="pill">${flags.length ? flags.join(" • ") : "فارغة"}</span>
-          </div>
-        </div>
-
-        <div class="page-options">
-          <div class="row">
-            <div class="field">
-              <label>عنوان الصفحة (اختياري)</label>
-              <input data-p="title" placeholder="مثال: البداية / الذكرى / الرسالة..." value="${escapeAttr(p.title||"")}" />
+      <div class="field" style="flex:1 1 200px;min-width:200px">
+        <div class="toggle" data-page-toggle="${key}">
+          <div class="t">
+            <i class="fa-solid ${icon}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${title}</div>
+              <div class="hint" style="margin:2px 0 0">${subtitle}</div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="field" style="flex:1 1 200px;min-width:200px">
-              <div class="toggle" data-page-toggle="includeIntro">
-                <div class="t">
-                  <i class="fa-solid fa-star"></i>
-                  <div>
-                    <div style="font-weight:1000;font-size:12px">واجهة (Intro)</div>
-                    <div class="hint" style="margin:2px 0 0">اسم بينوّر / أنيميشن / زر يبدأ</div>
-                  </div>
-                </div>
-                <div class="switch ${p.includeIntro ? "on" : ""}"></div>
-              </div>
-            </div>
-
-            <div class="field" style="flex:1 1 200px;min-width:200px">
-              <div class="toggle" data-page-toggle="includeMessage">
-                <div class="t">
-                  <i class="fa-solid fa-feather-pointed"></i>
-                  <div>
-                    <div style="font-weight:1000;font-size:12px">رسالة</div>
-                    <div class="hint" style="margin:2px 0 0">رسالة من القلب</div>
-                  </div>
-                </div>
-                <div class="switch ${p.includeMessage ? "on" : ""}"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="field" style="flex:1 1 200px;min-width:200px">
-              <div class="toggle" data-page-toggle="includeGallery">
-                <div class="t">
-                  <i class="fa-solid fa-images"></i>
-                  <div>
-                    <div style="font-weight:1000;font-size:12px">صور داخل الصفحة</div>
-                    <div class="hint" style="margin:2px 0 0">جاليري / سلايدر</div>
-                  </div>
-                </div>
-                <div class="switch ${p.includeGallery ? "on" : ""}"></div>
-              </div>
-            </div>
-
-            <div class="field" style="flex:1 1 200px;min-width:200px">
-              <div class="toggle" data-page-toggle="includeVideoBlock">
-                <div class="t">
-                  <i class="fa-solid fa-video"></i>
-                  <div>
-                    <div style="font-weight:1000;font-size:12px">فيديو داخل الصفحة</div>
-                    <div class="hint" style="margin:2px 0 0">مقاطع مميزة</div>
-                  </div>
-                </div>
-                <div class="switch ${p.includeVideoBlock ? "on" : ""}"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="field" style="flex:1 1 200px;min-width:200px">
-              <div class="toggle" data-page-toggle="includeMusicBlock">
-                <div class="t">
-                  <i class="fa-solid fa-music"></i>
-                  <div>
-                    <div style="font-weight:1000;font-size:12px">موسيقى داخل الصفحة</div>
-                    <div class="hint" style="margin:2px 0 0">تشغيل أغنية/موسيقى</div>
-                  </div>
-                </div>
-                <div class="switch ${p.includeMusicBlock ? "on" : ""}"></div>
-              </div>
-            </div>
-
-            <div class="field">
-              <label>رسالة الصفحة (اختياري)</label>
-              <textarea data-p="messageText" placeholder="اكتب نص الرسالة اللي تحب يظهر...">${escapeHtml(p.messageText||"")}</textarea>
-            </div>
-          </div>
-
-          <div class="row">
-            ${pageCounter("galleryCount","fa-image","صور في الصفحة", p.includeGallery, p.galleryCount, 0, 60)}
-            ${pageCounter("videoCount","fa-film","فيديو في الصفحة", p.includeVideoBlock, p.videoCount, 0, 10)}
-            ${pageCounter("musicCount","fa-headphones","أغاني في الصفحة", p.includeMusicBlock, p.musicCount, 0, 10)}
-          </div>
-
-          <p class="hint" style="margin:8px 0 0">ملحوظة: الأعداد دي لتسهيل التنظيم — هنطلب منك تبعت الملفات على الواتساب بعد الطلب.</p>
+          <div class="switch ${on ? "on" : ""}"></div>
         </div>
       </div>
     `;
@@ -1363,6 +1311,61 @@
     `;
   }
 
+  function pageCard(p, i){
+    const flags = [];
+    if(p.includeIntro) flags.push("واجهة");
+    if(p.includeMessage) flags.push("رسالة");
+    if(p.includeGallery) flags.push("صور");
+    if(p.includeVideoBlock) flags.push("فيديو");
+    if(p.includeMusicBlock) flags.push("موسيقى");
+
+    return `
+      <div class="page-card" data-page-index="${i}">
+        <div class="page-head">
+          <b><span class="num">${i+1}</span> ${escapeHtml(p.title || ("الصفحة " + (i+1)))}</b>
+          <div class="page-tools">
+            <span class="pill">${flags.length ? flags.join(" • ") : "فارغة"}</span>
+          </div>
+        </div>
+
+        <div class="page-options">
+          <div class="row">
+            <div class="field">
+              <label>عنوان الصفحة (اختياري)</label>
+              <input data-p="title" placeholder="مثال: البداية / الذكرى / الرسالة..." value="${escapeAttr(p.title||"")}" />
+            </div>
+          </div>
+
+          <div class="row">
+            ${pageToggle("includeIntro","fa-star","واجهة (Intro)","اسم بينوّر / أنيميشن / زر يبدأ", !!p.includeIntro)}
+            ${pageToggle("includeMessage","fa-feather-pointed","رسالة","رسالة من القلب", !!p.includeMessage)}
+          </div>
+
+          <div class="row">
+            ${pageToggle("includeGallery","fa-images","صور داخل الصفحة","جاليري / سلايدر", !!p.includeGallery)}
+            ${pageToggle("includeVideoBlock","fa-video","فيديو داخل الصفحة","مقاطع مميزة", !!p.includeVideoBlock)}
+          </div>
+
+          <div class="row">
+            ${pageToggle("includeMusicBlock","fa-music","موسيقى داخل الصفحة","تشغيل أغنية/موسيقى", !!p.includeMusicBlock)}
+            <div class="field">
+              <label>رسالة الصفحة (اختياري)</label>
+              <textarea data-p="messageText" placeholder="اكتب نص الرسالة اللي تحب يظهر...">${escapeHtml(p.messageText||"")}</textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            ${pageCounter("galleryCount","fa-image","صور في الصفحة", !!p.includeGallery, p.galleryCount, 0, 60)}
+            ${pageCounter("videoCount","fa-film","فيديو في الصفحة", !!p.includeVideoBlock, p.videoCount, 0, 10)}
+            ${pageCounter("musicCount","fa-headphones","أغاني في الصفحة", !!p.includeMusicBlock, p.musicCount, 0, 10)}
+          </div>
+
+          <p class="hint" style="margin:8px 0 0">ملحوظة: الأعداد دي لتسهيل التنظيم — هنطلب منك تبعت الملفات على الواتساب بعد الطلب.</p>
+        </div>
+      </div>
+    `;
+  }
+
   function renderSummaryBox(forceFull=false){
     const sum = buildSummary(forceFull);
     return `
@@ -1375,8 +1378,20 @@
     `;
   }
 
+  function pageFlagsText(p, i){
+    const f = [];
+    if(p.includeIntro) f.push("واجهة");
+    if(p.includeMessage) f.push("رسالة");
+    if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
+    if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
+    if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
+    return `#${i+1}: ${f.length? f.join(", ") : "—"}`;
+  }
+
   function buildSummary(full=false){
     const lines = [];
+    lines.push(`🧾 Order ID: <b>${escapeHtml(state.orderId || "—")}</b>`);
+
     const occ = state.occasion ? `المناسبة: <b>${escapeHtml(state.occasion)}</b>` : `<span class="sum-muted">المناسبة: لم يتم الاختيار</span>`;
     lines.push(occ);
 
@@ -1387,6 +1402,7 @@
     }
 
     lines.push(`الستايل: <b>${escapeHtml(state.tone||"")}</b> — المستلم: <b>${escapeHtml(state.receiverType||"")}</b>`);
+
     if(full || state.step >= 1){
       lines.push(`اسمك: <b>${escapeHtml(state.customerName||"—")}</b> — تواصل: <b>${escapeHtml(state.contact||"—")}</b>`);
       lines.push(`الباسورد: <b>${escapeHtml(state.password ? "••••••" : "—")}</b>`);
@@ -1396,6 +1412,8 @@
 
     if(full || state.step >= 2){
       lines.push(`عدد الصفحات: <b>${state.pagesCount}</b>`);
+      if(state.globalTitle) lines.push(`عنوان عام: <b>${escapeHtml(state.globalTitle)}</b>`);
+
       const g = [];
       if(state.includePhotos) g.push(`صور (${state.photosCount})`);
       if(state.includeVideos) g.push(`فيديو (${state.videosCount})`);
@@ -1410,16 +1428,6 @@
     return lines;
   }
 
-  function pageFlagsText(p, i){
-    const f = [];
-    if(p.includeIntro) f.push("واجهة");
-    if(p.includeMessage) f.push("رسالة");
-    if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
-    if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
-    if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
-    return `#${i+1}: ${f.length? f.join(", ") : "—"}`;
-  }
-
   function buildAssetsChecklist(){
     const items = [];
     const photos = state.includePhotos ? (Number(state.photosCount||0)) : 0;
@@ -1429,7 +1437,7 @@
     if(photos>0) items.push(`📸 صور: ${photos} (أبعتهم بالترتيب المطلوب / أسماء واضحة)`);
     if(videos>0) items.push(`🎥 فيديو: ${videos} (يفضل روابط Drive أو ملفات مضغوطة لو حجم كبير)`);
     if(songs>0)  items.push(`🎵 أغاني/موسيقى: ${songs} (اسم الأغنية أو ملف mp3/رابط)`);
-    // per page extras (لو في اختلاف)
+
     const pageNotes = [];
     state.pages.forEach((p,i)=>{
       const a = [];
@@ -1442,218 +1450,18 @@
     return items;
   }
 
-  // ========= Events wiring =========
-  function wireStepEvents(){
-    // Step 1: occasion chips
-    const occWrap = document.getElementById("occasionChips");
-    if(occWrap){
-      occWrap.querySelectorAll(".chip").forEach(ch=>{
-        ch.addEventListener("click", ()=>{
-          state.occasion = ch.getAttribute("data-occasion");
-          render();
-        });
-      });
-    }
-
-    // Step 1 fields
-    const customIdea = document.getElementById("customIdea");
-    if(customIdea){
-      customIdea.addEventListener("input", (e)=>{ state.customIdea = e.target.value; save(); });
-    }
-    const receiverType = document.getElementById("receiverType");
-    if(receiverType){
-      receiverType.addEventListener("change", (e)=>{ state.receiverType = e.target.value; renderSummaryOnly(); });
-    }
-    const tone = document.getElementById("tone");
-    if(tone){
-      tone.addEventListener("change", (e)=>{ state.tone = e.target.value; renderSummaryOnly(); });
-    }
-
-    // Step 2 chips + inputs
-    const delWrap = document.getElementById("deliveryChips");
-    if(delWrap){
-      delWrap.querySelectorAll(".chip").forEach(ch=>{
-        ch.addEventListener("click", ()=>{
-          state.delivery = ch.getAttribute("data-delivery");
-          render();
-        });
-      });
-    }
-
-    bindInput("customerName");
-    bindInput("contact");
-    bindInput("password");
-    bindInput("colors");
-    bindTextarea("notes");
-
-    // Step 3 global
-    const pagesCount = document.getElementById("pagesCount");
-    if(pagesCount){
-      pagesCount.addEventListener("change", (e)=>{
-        state.pagesCount = Number(e.target.value);
-        ensurePages();
-        render();
-      });
-    }
-    const globalTitle = document.getElementById("globalTitle");
-    if(globalTitle){
-      globalTitle.addEventListener("input", (e)=>{
-        state.globalTitle = e.target.value;
-        save();
-      });
-    }
-
-    // toggles
-    document.querySelectorAll("[data-toggle]").forEach(el=>{
-      el.addEventListener("click", ()=>{
-        const key = el.getAttribute("data-toggle");
-        state[key] = !state[key];
-        // لو اتقفل نوع — نخفض العداد لنفسه 0
-        if(!state[key]){
-          if(key === "includePhotos") state.photosCount = 0;
-          if(key === "includeVideos") state.videosCount = 0;
-          if(key === "includeSongs")  state.songsCount = 0;
-        } else {
-          // restore minimal default
-          if(key === "includePhotos" && state.photosCount===0) state.photosCount = 10;
-          if(key === "includeVideos" && state.videosCount===0) state.videosCount = 2;
-          if(key === "includeSongs"  && state.songsCount===0)  state.songsCount = 1;
-        }
-        render();
-      });
-    });
-
-    // counters (global)
-    document.querySelectorAll("[data-counter]").forEach(box=>{
-      const key = box.getAttribute("data-counter");
-      const min = Number(box.getAttribute("data-min"));
-      const max = Number(box.getAttribute("data-max"));
-      const input = box.querySelector("input");
-      const dec = box.querySelector("[data-act='dec']");
-      const inc = box.querySelector("[data-act='inc']");
-
-      const clamp = (v)=> Math.max(min, Math.min(max, v));
-
-      function setVal(v){
-        v = clamp(Number(v||0));
-        state[key] = v;
-        input.value = v;
-        save();
-        renderSummaryOnly();
-      }
-
-      dec.addEventListener("click", ()=>{
-        setVal(Number(input.value||0) - 1);
-      });
-      inc.addEventListener("click", ()=>{
-        setVal(Number(input.value||0) + 1);
-      });
-      input.addEventListener("input", ()=>{
-        setVal(input.value);
-      });
-      input.addEventListener("blur", ()=>{
-        setVal(input.value);
-      });
-    });
-
-    // pages per page
-    document.querySelectorAll(".page-card").forEach(card=>{
-      const idx = Number(card.getAttribute("data-page-index"));
-      const page = state.pages[idx];
-      if(!page) return;
-
-      // title + message
-      card.querySelectorAll("[data-p]").forEach(inp=>{
-        const key = inp.getAttribute("data-p");
-        inp.addEventListener("input", (e)=>{
-          page[key] = e.target.value;
-          save();
-          renderSummaryOnly();
-        });
-      });
-
-      // toggles inside page
-      card.querySelectorAll("[data-page-toggle]").forEach(t=>{
-        const key = t.getAttribute("data-page-toggle");
-        t.addEventListener("click", ()=>{
-          page[key] = !page[key];
-          // لو اتقفل بلوك — صفر عداده
-          if(key === "includeGallery" && !page.includeGallery) page.galleryCount = 0;
-          if(key === "includeVideoBlock" && !page.includeVideoBlock) page.videoCount = 0;
-          if(key === "includeMusicBlock" && !page.includeMusicBlock) page.musicCount = 0;
-          // لو اتفتح — رجع حد أدنى
-          if(key === "includeGallery" && page.includeGallery && page.galleryCount===0) page.galleryCount = 6;
-          if(key === "includeVideoBlock" && page.includeVideoBlock && page.videoCount===0) page.videoCount = 1;
-          if(key === "includeMusicBlock" && page.includeMusicBlock && page.musicCount===0) page.musicCount = 1;
-          render();
-        });
-      });
-
-      // counters inside page
-      card.querySelectorAll("[data-page-counter]").forEach(box=>{
-        const key = box.getAttribute("data-page-counter");
-        const min = Number(box.getAttribute("data-min"));
-        const max = Number(box.getAttribute("data-max"));
-        const disabled = box.getAttribute("data-disabled")==="1";
-        const input = box.querySelector("input");
-        const dec = box.querySelector("[data-act='dec']");
-        const inc = box.querySelector("[data-act='inc']");
-
-        const clamp = (v)=> Math.max(min, Math.min(max, v));
-
-        function setVal(v){
-          if(disabled) return;
-          v = clamp(Number(v||0));
-          page[key] = v;
-          input.value = v;
-          save();
-          renderSummaryOnly();
-        }
-
-        dec.addEventListener("click", ()=> setVal(Number(input.value||0)-1));
-        inc.addEventListener("click", ()=> setVal(Number(input.value||0)+1));
-        input.addEventListener("input", ()=> setVal(input.value));
-        input.addEventListener("blur", ()=> setVal(input.value));
-      });
-    });
-
-    // after review: wa link
-    if(state.step === 3){
-      updateWhatsAppLink();
-    }
+  // ========= Validation =========
+  function clearErrors(){
+    document.querySelectorAll(".error").forEach(e=>e.classList.remove("error"));
   }
-
-  function bindInput(id){
+  function req(id){
+    const v = (state[id]||"").trim();
     const el = document.getElementById(id);
-    if(!el) return;
-    el.addEventListener("input", (e)=>{
-      state[id] = e.target.value;
-      save();
-      renderSummaryOnly();
-    });
-  }
-  function bindTextarea(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.addEventListener("input", (e)=>{
-      state[id] = e.target.value;
-      save();
-      renderSummaryOnly();
-    });
-  }
-
-  // ========= Navigation + Validation =========
-  function prevStep(){
-    state.step = Math.max(0, state.step - 1);
-    render();
-  }
-
-  function nextStep(){
-    // validate current
-    const ok = validateStep(state.step);
-    if(!ok) return;
-    state.step = Math.min(steps.length-1, state.step + 1);
-    render();
+    if(!v){
+      if(el) el.classList.add("error");
+      return false;
+    }
+    return true;
   }
 
   function validateStep(step){
@@ -1662,7 +1470,6 @@
     if(step === 0){
       if(!state.occasion){
         toast("اختار المناسبة الأول");
-        // highlight chips
         const occWrap = document.getElementById("occasionChips");
         if(occWrap) occWrap.scrollIntoView({behavior:"smooth", block:"center"});
         return false;
@@ -1680,7 +1487,6 @@
     }
 
     if(step === 2){
-      // pages already ensured
       if(state.pagesCount < 1 || state.pagesCount > 4){
         toast("اختار عدد صفحات صحيح");
         return false;
@@ -1690,29 +1496,28 @@
     return true;
   }
 
-  function req(id){
-    const v = (state[id]||"").trim();
-    const el = document.getElementById(id);
-    if(!v){
-      if(el) el.classList.add("error");
-      return false;
-    }
-    return true;
+  // ========= Navigation =========
+  function prevStep(){
+    state.navDir = "prev";
+    state.step = Math.max(0, state.step - 1);
+    render();
   }
 
-  function clearErrors(){
-    document.querySelectorAll(".error").forEach(e=>e.classList.remove("error"));
+  function nextStep(){
+    const ok = validateStep(state.step);
+    if(!ok) return;
+    state.navDir = "next";
+    state.step = Math.min(steps.length-1, state.step + 1);
+    render();
   }
 
-  // ========= WhatsApp Message =========
+  // ========= WhatsApp =========
   function buildWhatsAppText(){
-    const orderId = "HL-" + uid().toUpperCase().slice(0,8);
-    const dt = new Date();
-    const when = dt.toLocaleString("ar-EG");
+    const when = new Date(state.createdAt || Date.now()).toLocaleString("ar-EG");
 
     const lines = [];
     lines.push("✨ *طلب جديد من HeartLink (Order Builder)*");
-    lines.push(`🧾 *Order ID:* ${orderId}`);
+    lines.push(`🧾 *Order ID:* ${state.orderId || "—"}`);
     lines.push(`🕒 *التاريخ:* ${when}`);
     lines.push("");
     lines.push(`🎉 *المناسبة:* ${state.occasion || "—"}`);
@@ -1733,184 +1538,4 @@
 
     lines.push("");
     lines.push(`📄 *عدد الصفحات:* ${state.pagesCount}`);
-    state.pages.forEach((p,i)=>{
-      const f = [];
-      if(p.includeIntro) f.push("واجهة");
-      if(p.includeMessage) f.push("رسالة");
-      if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
-      if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
-      if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
-      const title = (p.title||`الصفحة ${i+1}`).trim();
-      lines.push(`• صفحة ${i+1} (${title}): ${f.length?f.join(" / "):"—"}`);
-      if(p.includeMessage && p.messageText){
-        lines.push(`  - نص رسالة الصفحة: ${sanitizeForWA(shorten(p.messageText, 180))}`);
-      }
-    });
-
-    lines.push("");
-    lines.push("📦 *ملفات هتبعتها*");
-    const checklist = buildAssetsChecklist();
-    if(checklist.length){
-      checklist.forEach(x=>lines.push("• " + sanitizeForWA(x)));
-    }else{
-      lines.push("• لا يوجد ملفات (طلب نصي بسيط).");
-    }
-
-    if(state.notes){
-      lines.push("");
-      lines.push("📝 *ملاحظات إضافية*");
-      lines.push(sanitizeForWA(shorten(state.notes, 260)));
-    }
-
-    lines.push("");
-    lines.push("✅ *جاهز أبعت الملفات بعد ما تقولّي الترتيب المطلوب*");
-
-    return lines.join("\n");
-  }
-
-  function updateWhatsAppLink(){
-    const text = buildWhatsAppText();
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    const wa = document.getElementById("waBtn");
-    if(wa) wa.href = url;
-  }
-
-  // ========= Copy Summary =========
-  function copyOrderSummary(){
-    const text = stripHtml(buildSummary(true).map(x=>"- " + x).join("\n")) +
-      "\n\n" + "قائمة الملفات:\n" + buildAssetsChecklist().map(x=>"- " + x).join("\n");
-    navigator.clipboard.writeText(text).then(()=>toast("اتنسخ الملخص")).catch(()=>toast("انسخ يدويًا"));
-  }
-
-  function finishAndShowSuccess(){
-    const ok = validateStep(3);
-    if(!ok) return;
-
-    // success screen (inside body)
-    const body = document.getElementById("cardBody");
-    const waText = buildWhatsAppText();
-
-    body.innerHTML = `
-      <div class="success-screen animate__animated animate__fadeIn">
-        <div class="success-icon"><i class="fa-solid fa-check"></i></div>
-        <h2 style="margin:0 0 8px;font-size:18px;font-weight:1000">تم إنشاء الطلب ✅</h2>
-        <p class="hint" style="margin:0 0 12px">دلوقتي تقدر تبعت الرسالة الجاهزة على الواتساب أو تنسخها.</p>
-
-        <div class="section" style="text-align:right">
-          <div class="section-h">
-            <h2><i class="fa-solid fa-message"></i> رسالة جاهزة للواتساب</h2>
-          </div>
-          <textarea id="waTextArea" style="min-height:210px;direction:rtl" readonly>${escapeHtml(waText)}</textarea>
-
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <a class="btn whatsapp" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener">
-              <i class="fa-brands fa-whatsapp"></i> افتح واتساب
-            </a>
-            <button class="btn primary" onclick="copyWAText()">
-              <i class="fa-solid fa-copy"></i> نسخ الرسالة
-            </button>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-h">
-            <h2><i class="fa-solid fa-list-check"></i> الخطوة الجاية</h2>
-          </div>
-          <p class="hint">بعد ما تبعت الرسالة، هنطلب منك الملفات (صور/فيديو/أغاني) بالترتيب المناسب لكل صفحة.</p>
-        </div>
-      </div>
-    `;
-
-    const f = document.getElementById("footerActions");
-    f.innerHTML = `
-      <button class="btn ghost" onclick="state.step=0;render()">
-        <i class="fa-solid fa-house"></i> طلب جديد
-      </button>
-      <button class="btn danger btn ghost" onclick="resetAll()">
-        <i class="fa-solid fa-trash"></i> مسح كل شيء
-      </button>
-    `;
-    save();
-    toast("جاهز للإرسال");
-  }
-
-  function copyWAText(){
-    const ta = document.getElementById("waTextArea");
-    if(!ta) return;
-    navigator.clipboard.writeText(ta.value).then(()=>toast("اتنسخت الرسالة")).catch(()=>toast("انسخ يدويًا"));
-  }
-
-  function resetAll(){
-    localStorage.removeItem(STORAGE_KEY);
-    // reset to defaults
-    Object.keys(state).forEach(k=>delete state[k]);
-    // re-init defaults
-    Object.assign(state, {
-      step:0,
-      occasion:"",
-      customIdea:"",
-      receiverType:"حبيبتي/حبيبي",
-      customerName:"",
-      contact:"",
-      password:"",
-      tone:"رومانسي",
-      colors:"بنفسجي/أزرق",
-      delivery:"عادي",
-      notes:"",
-      pagesCount:1,
-      pages:[],
-      includePhotos:true,
-      includeVideos:true,
-      includeSongs:true,
-      photosCount:10,
-      videosCount:2,
-      songsCount:1
-    });
-    ensurePages();
-    toast("تم المسح");
-    render();
-  }
-
-  // ========= Helpers =========
-  function shorten(s, n){
-    s = String(s||"").trim();
-    if(s.length <= n) return s;
-    return s.slice(0, n-1) + "…";
-  }
-  function escapeHtml(s){
-    return String(s||"")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-  function escapeAttr(s){ return escapeHtml(s); }
-  function stripHtml(html){
-    const d = document.createElement("div");
-    d.innerHTML = html;
-    return d.textContent || d.innerText || "";
-  }
-  function sanitizeForWA(s){
-    return String(s||"").replace(/\s+/g," ").trim();
-  }
-  function renderSummaryOnly(){
-    // تحديث سريع: نعيد رسم نفس الستيب عشان الملخص يتحدث بدون تعقيد
-    // (التصميم متماسك، والملخص بيتحدث في كل خطوة)
-    save();
-    const body = document.getElementById("cardBody");
-    if(state.step === 0) body.innerHTML = stepOccasion();
-    if(state.step === 1) body.innerHTML = stepDetails();
-    if(state.step === 2) body.innerHTML = stepPages();
-    if(state.step === 3) body.innerHTML = stepReview();
-    renderFooter();
-    wireStepEvents();
-  }
-
-  // ========= Start =========
-  load();
-  ensurePages();
-  render();
-</script>
-</body>
-</html>
+    if(state.globalTitle) lines.push(`🏷️ *عنوان عام:* ${sanitizeF
