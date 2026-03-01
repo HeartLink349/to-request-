@@ -170,9 +170,7 @@
     }
     .dot.active{background:rgba(99,102,241,.9);border-color:rgba(99,102,241,.5);box-shadow:0 0 0 6px rgba(99,102,241,.12)}
     .dot.done{background:rgba(34,197,94,.95);border-color:rgba(34,197,94,.55)}
-    .top-actions{
-      display:flex;align-items:center;gap:8px
-    }
+    .top-actions{display:flex;align-items:center;gap:8px}
     .mini-btn{
       height:34px;border-radius:12px;
       background:rgba(255,255,255,.03);
@@ -183,38 +181,20 @@
       font-weight:900;
       cursor:pointer;
       transition:.25s;
-      user-select:none;
     }
-    .mini-btn i{opacity:.9}
     .mini-btn:active{transform:scale(.97)}
     .mini-btn.danger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
     .mini-btn.danger i{color:var(--danger)}
-    .mini-btn.disabled{
-      opacity:.55;
-      pointer-events:none;
-      filter:saturate(.6);
-    }
 
-    .title-row{
-      display:flex;align-items:center;justify-content:space-between;gap:10px
-    }
     .title-row h1{
-      margin:0;
-      font-size:16px;
-      font-weight:1000;
-      letter-spacing:.2px;
+      margin:0;font-size:16px;font-weight:1000;letter-spacing:.2px;
       display:flex;align-items:center;gap:10px;
     }
     .title-row h1 span{
       background:linear-gradient(135deg,var(--primary),var(--secondary));
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     }
-    .subtitle{
-      margin:0;
-      font-size:11px;
-      color:var(--text-dim);
-      line-height:1.55;
-    }
+    .subtitle{margin:0;font-size:11px;color:var(--text-dim);line-height:1.55}
 
     .bar{
       height:10px;border-radius:999px;background:rgba(148,163,184,.16);
@@ -239,11 +219,7 @@
     .step-anim{will-change:transform, opacity}
     .animate-fast{--animate-duration:.35s}
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
 
     .section{
       background:rgba(255,255,255,.02);
@@ -251,22 +227,10 @@
       border-radius:26px;
       padding:14px;
     }
-
-    .section-h{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
+    .section-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
     .section-h h2{
-      margin:0;
-      font-size:13px;
-      font-weight:1000;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:center;
-      gap:10px;
+      margin:0;font-size:13px;font-weight:1000;letter-spacing:.2px;
+      display:flex;align-items:center;gap:10px;
     }
     .section-h h2 i{
       width:34px;height:34px;border-radius:14px;
@@ -275,30 +239,12 @@
       border:1px solid rgba(99,102,241,.25);
       color:var(--primary);
     }
-    .hint{
-      font-size:10px;
-      color:var(--text-dim);
-      line-height:1.4;
-      margin:0;
-    }
+    .hint{font-size:10px;color:var(--text-dim);line-height:1.4;margin:0}
 
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .field{
-      flex:1 1 140px;
-      min-width:140px;
-    }
-    label{
-      display:block;
-      font-size:10px;
-      color:var(--text-dim);
-      font-weight:900;
-      letter-spacing:.4px;
-      margin:0 6px 6px 0;
-    }
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .field{flex:1 1 140px;min-width:140px}
+
+    label{display:block;font-size:10px;color:var(--text-dim);font-weight:900;letter-spacing:.4px;margin:0 6px 6px 0}
     input, select, textarea{
       width:100%;
       background:rgba(255,255,255,.02);
@@ -316,9 +262,7 @@
       box-shadow:0 0 0 6px rgba(99,102,241,.12);
     }
 
-    .chips{
-      display:flex;flex-wrap:wrap;gap:10px
-    }
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
     .chip{
       flex:1 1 130px;
       min-width:130px;
@@ -334,9 +278,7 @@
       gap:10px;
       transition:.25s;
     }
-    .chip .l{
-      display:flex;align-items:center;gap:10px;min-width:0
-    }
+    .chip .l{display:flex;align-items:center;gap:10px;min-width:0}
     .chip .ic{
       width:34px;height:34px;border-radius:14px;
       display:flex;align-items:center;justify-content:center;
@@ -345,13 +287,8 @@
       color:var(--text);
       flex:0 0 auto;
     }
-    .chip b{
-      font-size:12px;
-      font-weight:1000;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
+    .chip b{font-size:12px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .chip small{display:block;font-size:9px;color:var(--text-dim);margin-top:2px}
-    .chip .r i{opacity:.75}
     .chip.active{
       border-color:rgba(99,102,241,.6);
       background:rgba(99,102,241,.10);
@@ -366,11 +303,8 @@
       border:1px solid var(--glass-border);
       background:rgba(255,255,255,.02);
       cursor:pointer;
-      user-select:none;
     }
-    .toggle .t{
-      display:flex;align-items:center;gap:10px
-    }
+    .toggle .t{display:flex;align-items:center;gap:10px}
     .toggle .t i{
       width:34px;height:34px;border-radius:14px;
       display:flex;align-items:center;justify-content:center;
@@ -397,14 +331,8 @@
       transition:.25s;
       box-shadow:0 10px 18px rgba(0,0,0,.25);
     }
-    .switch.on{
-      background:rgba(34,197,94,.35);
-      border-color:rgba(34,197,94,.35);
-    }
-    .switch.on::after{
-      right:26px;
-      background:#fff;
-    }
+    .switch.on{background:rgba(34,197,94,.35);border-color:rgba(34,197,94,.35)}
+    .switch.on::after{right:26px}
 
     .counter{
       display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -420,9 +348,7 @@
       border:1px solid rgba(99,102,241,.22);
       color:var(--primary);
     }
-    .ctr{
-      display:flex;align-items:center;gap:8px
-    }
+    .ctr{display:flex;align-items:center;gap:8px}
     .ctr button{
       width:34px;height:34px;border-radius:14px;
       border:1px solid var(--glass-border);
@@ -433,55 +359,30 @@
       font-weight:1000;
     }
     .ctr button:active{transform:scale(.95)}
-    .ctr input{
-      width:64px;text-align:center;padding:10px 8px;border-radius:14px;
-      font-weight:1000
-    }
+    .ctr input{width:64px;text-align:center;padding:10px 8px;border-radius:14px;font-weight:1000}
 
-    .pages-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
+    .pages-grid{display:grid;grid-template-columns:1fr;gap:10px}
     .page-card{
-      border-radius:22px;
-      border:1px solid var(--glass-border);
+      border-radius:22px;border:1px solid var(--glass-border);
       background:linear-gradient(165deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.015) 100%);
-      padding:12px;
-      overflow:hidden;
+      padding:12px;overflow:hidden;
     }
-    .page-head{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      margin-bottom:10px;
-    }
-    .page-head b{
-      font-size:12px;font-weight:1000;display:flex;align-items:center;gap:10px
-    }
+    .page-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .page-head b{font-size:12px;font-weight:1000;display:flex;align-items:center;gap:10px}
     .page-head b .num{
       width:30px;height:30px;border-radius:12px;
       display:flex;align-items:center;justify-content:center;
       background:linear-gradient(135deg,var(--primary),var(--secondary));
       color:#fff;font-weight:1000;box-shadow:0 10px 18px rgba(99,102,241,.22);
     }
-    .page-tools{
-      display:flex;align-items:center;gap:8px
-    }
     .pill{
-      font-size:9px;
-      padding:6px 10px;border-radius:999px;
+      font-size:9px;padding:6px 10px;border-radius:999px;
       border:1px solid var(--glass-border);
       background:rgba(255,255,255,.02);
       color:var(--text-dim);
-      font-weight:900;
-      letter-spacing:.4px;
-      white-space:nowrap;
+      font-weight:900;letter-spacing:.4px;white-space:nowrap;
     }
-
-    .page-options{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
+    .page-options{display:grid;grid-template-columns:1fr;gap:10px}
 
     .summary{
       border-radius:26px;
@@ -489,12 +390,7 @@
       background:rgba(99,102,241,.06);
       padding:14px;
     }
-    .summary h3{
-      margin:0 0 10px 0;
-      font-size:12px;
-      font-weight:1000;
-      display:flex;align-items:center;gap:10px
-    }
+    .summary h3{margin:0 0 10px 0;font-size:12px;font-weight:1000;display:flex;align-items:center;gap:10px}
     .summary h3 i{color:var(--primary)}
     .sum-list{margin:0;padding:0 18px 0 0;font-size:11px;color:var(--text);line-height:1.7}
     .sum-list li{margin:4px 0}
@@ -504,129 +400,55 @@
       display:flex;align-items:center;justify-content:center;gap:10px;
       margin:10px 0 2px;
       color:var(--primary);
-      font-weight:1000;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      font-size:10px;
-      opacity:.95;
+      font-weight:1000;letter-spacing:1px;text-transform:uppercase;font-size:10px;opacity:.95;
     }
     .divider:before,.divider:after{
-      content:"";
-      flex:1;height:1px;
+      content:"";flex:1;height:1px;
       background:linear-gradient(90deg, transparent, var(--glass-border), transparent);
     }
 
     .footer-actions{
       padding:12px 16px 16px;
       border-top:1px solid var(--glass-border);
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+      display:flex;gap:10px;flex-wrap:wrap;
       background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.10) 100%);
     }
     .btn{
-      flex:1 1 160px;
-      min-width:160px;
-      height:48px;
-      border-radius:18px;
+      flex:1 1 160px;min-width:160px;height:48px;border-radius:18px;
       border:1px solid rgba(255,255,255,.10);
-      cursor:pointer;
-      font-weight:1000;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      transition:.25s;
-      color:#fff;
-      text-decoration:none;
-      user-select:none;
+      cursor:pointer;font-weight:1000;letter-spacing:.2px;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      transition:.25s;color:#fff;text-decoration:none;
     }
     .btn:active{transform:scale(.97)}
-    .btn.primary{
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      box-shadow:0 14px 28px rgba(99,102,241,.22);
-    }
-    .btn.ghost{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--glass-border);
-      color:var(--text);
-    }
-    .btn.success{
-      background:linear-gradient(135deg, var(--success), #16a34a);
-      box-shadow:0 14px 28px rgba(34,197,94,.20);
-    }
-    .btn.whatsapp{
-      background:#25D366;
-      box-shadow:0 14px 28px rgba(37,211,102,.18);
-    }
-    .btn.disabled{
-      opacity:.55;
-      pointer-events:none;
-      filter:saturate(.6);
-    }
+    .btn.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 14px 28px rgba(99,102,241,.22)}
+    .btn.ghost{background:rgba(255,255,255,.03);border:1px solid var(--glass-border);color:var(--text)}
+    .btn.success{background:linear-gradient(135deg, var(--success), #16a34a);box-shadow:0 14px 28px rgba(34,197,94,.20)}
+    .btn.whatsapp{background:#25D366;box-shadow:0 14px 28px rgba(37,211,102,.18)}
+    .btn.disabled{opacity:.55;pointer-events:none;filter:saturate(.6)}
 
     .toast{
-      position:fixed;
-      bottom:22px;
-      left:50%;
+      position:fixed;bottom:22px;left:50%;
       transform:translateX(-50%);
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(0,0,0,.55);
-      color:#fff;
+      padding:12px 14px;border-radius:16px;
+      background:rgba(0,0,0,.55);color:#fff;
       border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
       box-shadow:0 18px 40px rgba(0,0,0,.35);
-      z-index:9999;
-      display:none;
-      font-size:12px;
-      font-weight:900;
-      gap:10px;
-      align-items:center;
+      z-index:9999;display:none;font-size:12px;font-weight:900;
+      gap:10px;align-items:center;
     }
     .toast.show{display:flex;animation:fadeInUp .25s ease}
     .toast i{color:#ffd700}
 
     .faq{display:flex;flex-direction:column;gap:10px}
-    details{
-      border:1px solid var(--glass-border);
-      border-radius:18px;
-      background:rgba(255,255,255,.02);
-      padding:10px 12px;
-    }
-    summary{
-      cursor:pointer;
-      font-weight:1000;
-      font-size:12px;
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
+    details{border:1px solid var(--glass-border);border-radius:18px;background:rgba(255,255,255,.02);padding:10px 12px}
+    summary{cursor:pointer;font-weight:1000;font-size:12px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
     summary::-webkit-details-marker{display:none}
-    details p{
-      margin:10px 0 0 0;
-      font-size:11px;
-      line-height:1.7;
-      color:var(--text-dim);
-    }
+    details p{margin:10px 0 0 0;font-size:11px;line-height:1.7;color:var(--text-dim)}
 
-    .social-proof{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:8px;
-      margin-top:10px;
-    }
-    .stat{
-      border-radius:18px;
-      border:1px solid var(--glass-border);
-      background:rgba(255,255,255,.02);
-      padding:10px 10px;
-      text-align:center;
-    }
+    .social-proof{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+    .stat{border-radius:18px;border:1px solid var(--glass-border);background:rgba(255,255,255,.02);padding:10px 10px;text-align:center}
     .stat b{display:block;font-size:13px;font-weight:1000}
     .stat span{display:block;font-size:9px;color:var(--text-dim);margin-top:2px;font-weight:900;letter-spacing:.4px}
 
@@ -644,27 +466,16 @@
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
     .footer-copyright-tag{
-      position:fixed;
-      bottom:8px;
-      left:0;
-      width:100%;
-      text-align:center;
-      font-size:9px;
-      color:var(--text-dim);
-      opacity:.55;
-      z-index:999;
-      pointer-events:none;
-      letter-spacing:1px;
+      position:fixed;bottom:8px;left:0;width:100%;
+      text-align:center;font-size:9px;color:var(--text-dim);
+      opacity:.55;z-index:999;pointer-events:none;letter-spacing:1px;
     }
 
     @keyframes fadeInDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
     @keyframes fadeInUp{from{opacity:0;transform:translate(-50%, 12px)}to{opacity:1;transform:translate(-50%, 0)}}
 
     .req{color:#ffd700;font-weight:1000}
-    .error{
-      border-color:rgba(239,68,68,.55)!important;
-      box-shadow:0 0 0 6px rgba(239,68,68,.10)!important;
-    }
+    .error{border-color:rgba(239,68,68,.55)!important;box-shadow:0 0 0 6px rgba(239,68,68,.10)!important}
   </style>
 </head>
 
@@ -682,7 +493,7 @@
       <div class="tagline-sub">Premium Experience</div>
     </div>
 
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">
       <i id="theme-icon" class="fa-solid fa-moon"></i>
     </button>
   </header>
@@ -694,10 +505,10 @@
           <div class="progress-row">
             <div class="step-dots" id="dots"></div>
             <div class="top-actions">
-              <button id="copyBtn" class="mini-btn" onclick="copyOrderSummary()" title="نسخ الملخص">
+              <button class="mini-btn" id="copyBtn" title="نسخ الملخص">
                 <i class="fa-solid fa-copy"></i><span>نسخ</span>
               </button>
-              <button id="resetBtn" class="mini-btn danger" onclick="resetAll()" title="مسح الكل">
+              <button class="mini-btn danger" id="resetBtn" title="مسح الكل">
                 <i class="fa-solid fa-rotate-left"></i><span>مسح</span>
               </button>
             </div>
@@ -706,7 +517,7 @@
           <div class="title-row">
             <div>
               <h1><i class="fa-solid fa-wand-magic-sparkles"></i> إنشاء <span>طلب</span> احترافي</h1>
-              <p class="subtitle">املا البيانات مرة واحدة — وفي الآخر هتطلع لك رسالة جاهزة تبعتها على الواتساب + قائمة بالحاجات اللي لازم تبعتها (صور/فيديو/أغاني).</p>
+              <p class="subtitle">املا البيانات مرة واحدة — وفي الآخر هتطلع لك رسالة جاهزة تبعتها على الواتساب + قائمة بالحاجات اللي لازم تبعتها.</p>
             </div>
           </div>
 
@@ -725,6 +536,7 @@
   <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastText">تم</span></div>
 
 <script>
+(() => {
   // ========= إعدادات =========
   const WHATSAPP_NUMBER = "201125674359";
   const STORAGE_KEY = "heartlink_order_builder_v2";
@@ -737,12 +549,10 @@
     orderId: "",
     createdAt: "",
 
-    // Step 1
     occasion: "",
     customIdea: "",
     receiverType: "حبيبتي/حبيبي",
 
-    // Step 2
     customerName: "",
     contact: "",
     password: "",
@@ -751,18 +561,17 @@
     delivery: "عادي",
     notes: "",
 
-    // Step 3
     pagesCount: 1,
     pages: [],
-    globalTitle: "",
 
-    // Global assets
     includePhotos: true,
     includeVideos: true,
     includeSongs: true,
     photosCount: 10,
     videosCount: 2,
-    songsCount: 1
+    songsCount: 1,
+
+    globalTitle: ""
   };
 
   const OCCASIONS = [
@@ -792,7 +601,6 @@
   function save(){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
   }
-
   function load(){
     try{
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -805,35 +613,10 @@
   function toast(msg){
     const t = document.getElementById("toast");
     const txt = document.getElementById("toastText");
+    if(!t || !txt) return;
     txt.textContent = msg;
     t.classList.add("show");
     setTimeout(()=>t.classList.remove("show"), 1600);
-  }
-
-  function escapeHtml(s){
-    return String(s||"")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-  function escapeAttr(s){ return escapeHtml(s); }
-
-  function shorten(s, n){
-    s = String(s||"").trim();
-    if(s.length <= n) return s;
-    return s.slice(0, n-1) + "…";
-  }
-
-  function stripHtml(html){
-    const d = document.createElement("div");
-    d.innerHTML = html;
-    return d.textContent || d.innerText || "";
-  }
-
-  function sanitizeForWA(s){
-    return String(s||"").replace(/\s+/g," ").trim();
   }
 
   // ========= Theme =========
@@ -841,7 +624,7 @@
     const isLight = mode === "light";
     document.body.classList.toggle("light-mode", isLight);
     const icon = document.getElementById("theme-icon");
-    icon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    if(icon) icon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
     try{ localStorage.setItem(THEME_KEY, mode); }catch(e){}
   }
   function toggleTheme(){
@@ -877,7 +660,6 @@
   function ensurePages(){
     const n = Math.max(1, Math.min(4, Number(state.pagesCount || 1)));
     state.pagesCount = n;
-
     if(!Array.isArray(state.pages)) state.pages = [];
     while(state.pages.length < n) state.pages.push(makePage(state.pages.length));
     if(state.pages.length > n) state.pages = state.pages.slice(0, n);
@@ -886,6 +668,7 @@
   // ========= Progress UI =========
   function renderDots(){
     const el = document.getElementById("dots");
+    if(!el) return;
     el.innerHTML = "";
     steps.forEach((s, i)=>{
       const d = document.createElement("div");
@@ -897,40 +680,19 @@
 
   function setProgressBar(){
     const fill = document.getElementById("barFill");
+    if(!fill) return;
     const pct = Math.round((state.step / (steps.length-1)) * 100);
     fill.style.width = pct + "%";
   }
 
+  // ========= Animations =========
   function stepEnterAnimation(){
     const body = document.getElementById("cardBody");
+    if(!body) return;
     body.classList.remove("animate__animated","animate__fadeInLeft","animate__fadeInRight","animate-fast");
     void body.offsetWidth;
     body.classList.add("animate__animated","animate-fast");
     body.classList.add(state.navDir === "next" ? "animate__fadeInRight" : "animate__fadeInLeft");
-  }
-
-  function hasAnyData(){
-    const keys = ["occasion","customIdea","customerName","contact","password","notes","globalTitle"];
-    if(keys.some(k => String(state[k]||"").trim())) return true;
-    if(state.pages?.some(p => String(p.title||"").trim() || String(p.messageText||"").trim())) return true;
-    if(Number(state.pagesCount||1) !== 1) return true;
-    // counts toggles
-    if(!state.includePhotos || !state.includeVideos || !state.includeSongs) return true;
-    if(Number(state.photosCount||0) !== 10) return true;
-    if(Number(state.videosCount||0) !== 2) return true;
-    if(Number(state.songsCount||0) !== 1) return true;
-    return false;
-  }
-
-  function updateTopButtons(){
-    const copyBtn = document.getElementById("copyBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    const canCopy = hasAnyData(); // تقدر تغيّرها لو عايز شرط أقوى
-    copyBtn.classList.toggle("disabled", !canCopy);
-
-    const canReset = hasAnyData();
-    resetBtn.classList.toggle("disabled", !canReset);
   }
 
   // ========= Render =========
@@ -938,11 +700,12 @@
     ensureMeta();
     ensurePages();
     save();
-
     renderDots();
     setProgressBar();
 
     const body = document.getElementById("cardBody");
+    if(!body) return;
+
     body.scrollTop = 0;
 
     if(state.step === 0) body.innerHTML = stepOccasion();
@@ -952,21 +715,21 @@
 
     renderFooter();
     wireStepEvents();
-    updateTopButtons();
     stepEnterAnimation();
   }
 
   function renderFooter(){
     const f = document.getElementById("footerActions");
+    if(!f) return;
     const isFirst = state.step === 0;
     const isLast = state.step === steps.length-1;
 
     if(!isLast){
       f.innerHTML = `
-        <button class="btn ghost ${isFirst ? "disabled" : ""}" onclick="prevStep()">
+        <button class="btn ghost ${isFirst ? "disabled" : ""}" onclick="window.__HL.prevStep()">
           <i class="fa-solid fa-arrow-right"></i> رجوع
         </button>
-        <button class="btn primary" onclick="nextStep()">
+        <button class="btn primary" onclick="window.__HL.nextStep()">
           التالي <i class="fa-solid fa-arrow-left"></i>
         </button>
       `;
@@ -975,10 +738,10 @@
         <a class="btn whatsapp" id="waBtn" href="#" target="_blank" rel="noopener">
           <i class="fa-brands fa-whatsapp"></i> افتح واتساب برسالة جاهزة
         </a>
-        <button class="btn success" onclick="finishAndShowSuccess()">
+        <button class="btn success" onclick="window.__HL.finishAndShowSuccess()">
           <i class="fa-solid fa-check-double"></i> تأكيد إنشاء الطلب
         </button>
-        <button class="btn ghost" onclick="prevStep()">
+        <button class="btn ghost" onclick="window.__HL.prevStep()">
           <i class="fa-solid fa-arrow-right"></i> تعديل
         </button>
       `;
@@ -986,7 +749,7 @@
     }
   }
 
-  // ========= Step Templates =========
+  // ========= Steps Templates =========
   function stepOccasion(){
     return `
       <div class="grid">
@@ -994,16 +757,16 @@
           <div class="section-h">
             <h2><i class="fa-solid fa-calendar-heart"></i> اختار المناسبة <span class="req">*</span></h2>
           </div>
-          <p class="hint">اختيار المناسبة بيساعدنا نطلع الإحساس الصح في التصميم (ألوان/أنيميشن/ستايل).</p>
+          <p class="hint">اختيار المناسبة بيساعدنا نطلع الإحساس الصح في التصميم.</p>
 
           <div class="chips" id="occasionChips">
             ${OCCASIONS.map(o => `
-              <div class="chip ${state.occasion === o.key ? "active" : ""}" data-occasion="${o.key}">
+              <div class="chip ${state.occasion === o.key ? "active" : ""}" data-occasion="${escapeAttr(o.key)}">
                 <div class="l">
-                  <div class="ic"><i class="fa-solid ${o.icon}"></i></div>
+                  <div class="ic"><i class="fa-solid ${escapeAttr(o.icon)}"></i></div>
                   <div>
-                    <b>${o.key}</b>
-                    <small>${o.hint}</small>
+                    <b>${escapeHtml(o.key)}</b>
+                    <small>${escapeHtml(o.hint)}</small>
                   </div>
                 </div>
                 <div class="r"><i class="fa-solid fa-chevron-left"></i></div>
@@ -1014,7 +777,7 @@
           <div style="margin-top:10px" class="row">
             <div class="field">
               <label>لو عندك فكرة خاصة (اختياري)</label>
-              <textarea id="customIdea" placeholder="مثال: عايز الصفحة الأولى تبقى اسم بينوّر + زر يفتح الرسالة + صور بتتحرك...">${escapeHtml(state.customIdea||"")}</textarea>
+              <textarea id="customIdea" placeholder="مثال: عايز الصفحة الأولى تبقى اسم بينوّر...">${escapeHtml(state.customIdea||"")}</textarea>
             </div>
           </div>
         </div>
@@ -1029,7 +792,7 @@
               <label>نوع المستلم</label>
               <select id="receiverType">
                 ${["حبيبتي/حبيبي","زوجتي/زوجي","صاحبي/صاحبتي","أختي/أخويا","حد قريب"].map(v=>`
-                  <option value="${v}" ${state.receiverType===v?"selected":""}>${v}</option>
+                  <option value="${escapeAttr(v)}" ${state.receiverType===v?"selected":""}>${escapeHtml(v)}</option>
                 `).join("")}
               </select>
             </div>
@@ -1037,7 +800,7 @@
               <label>الستايل العام</label>
               <select id="tone">
                 ${["رومانسي","فخم","كيوت","ضحك وهزار","هادئ"].map(v=>`
-                  <option value="${v}" ${state.tone===v?"selected":""}>${v}</option>
+                  <option value="${escapeAttr(v)}" ${state.tone===v?"selected":""}>${escapeHtml(v)}</option>
                 `).join("")}
               </select>
             </div>
@@ -1071,27 +834,27 @@
               <input id="customerName" placeholder="اكتب اسمك" value="${escapeAttr(state.customerName||"")}" />
             </div>
             <div class="field">
-              <label>رقم/يوزر للتواصل (واتساب/تيليجرام) <span class="req">*</span></label>
+              <label>رقم/يوزر للتواصل <span class="req">*</span></label>
               <input id="contact" placeholder="مثال: 01xxxxxxxxx أو @username" value="${escapeAttr(state.contact||"")}" />
             </div>
           </div>
 
           <div class="row">
             <div class="field">
-              <label>الباسورد اللي هيفتح الموقع <span class="req">*</span></label>
+              <label>الباسورد <span class="req">*</span></label>
               <input id="password" placeholder="مثال: 20/1/2002 أو كلمة" value="${escapeAttr(state.password||"")}" />
               <p class="hint" style="margin-top:8px">نصيحة: اختار باسورد سهل عليكم وصعب على أي حد تاني.</p>
             </div>
             <div class="field">
               <label>الألوان/الثيم (اختياري)</label>
-              <input id="colors" placeholder="مثال: أسود/ذهبي أو بنفسجي/أزرق" value="${escapeAttr(state.colors||"")}" />
+              <input id="colors" placeholder="مثال: أسود/ذهبي" value="${escapeAttr(state.colors||"")}" />
             </div>
           </div>
 
           <div class="row">
             <div class="field">
               <label>ملاحظات إضافية (اختياري)</label>
-              <textarea id="notes" placeholder="أي تفاصيل مهمة: أسماء، تاريخ مهم، جملة معينة، ستايل تفضله...">${escapeHtml(state.notes||"")}</textarea>
+              <textarea id="notes" placeholder="أي تفاصيل مهمة...">${escapeHtml(state.notes||"")}</textarea>
             </div>
           </div>
         </div>
@@ -1100,16 +863,16 @@
           <div class="section-h">
             <h2><i class="fa-solid fa-truck-fast"></i> سرعة التنفيذ</h2>
           </div>
-          <p class="hint">اختيار السرعة يساعدنا نرتب الأولويات. (التسعير/الاتفاق النهائي بيكون في الواتساب).</p>
+          <p class="hint">اختيار السرعة يساعدنا نرتب الأولويات.</p>
 
           <div class="chips" id="deliveryChips">
             ${["عادي","مستعجل","نهائي + تدقيق"].map(v => `
-              <div class="chip ${state.delivery===v ? "active" : ""}" data-delivery="${v}">
+              <div class="chip ${state.delivery===v ? "active" : ""}" data-delivery="${escapeAttr(v)}">
                 <div class="l">
                   <div class="ic"><i class="fa-solid ${v==="عادي" ? "fa-stopwatch" : v==="مستعجل" ? "fa-bolt" : "fa-badge-check"}"></i></div>
                   <div>
-                    <b>${v}</b>
-                    <small>${v==="عادي" ? "التسليم حسب الدور" : v==="مستعجل" ? "أولوية أعلى" : "تفاصيل ولوك نهائي"} </small>
+                    <b>${escapeHtml(v)}</b>
+                    <small>${escapeHtml(v==="عادي" ? "التسليم حسب الدور" : v==="مستعجل" ? "أولوية أعلى" : "تفاصيل ولوك نهائي")}</small>
                   </div>
                 </div>
                 <div class="r"><i class="fa-solid fa-chevron-left"></i></div>
@@ -1138,7 +901,7 @@
               <label>عدد الصفحات</label>
               <select id="pagesCount">
                 ${[1,2,3,4].map(n=>`
-                  <option value="${n}" ${Number(state.pagesCount)===n?"selected":""}>${n} صفحة</option>
+                  <option value="${n}" ${state.pagesCount===n?"selected":""}>${n} صفحة</option>
                 `).join("")}
               </select>
             </div>
@@ -1161,8 +924,6 @@
             ${counterBlock("videosCount","fa-film","عدد الفيديو", 0, 40)}
             ${counterBlock("songsCount","fa-headphones","عدد الأغاني", 0, 20)}
           </div>
-
-          <p class="hint" style="margin-top:10px">لو مش هتستخدم نوع معين (صور/فيديو/أغاني)، اقفله من الزر فوق.</p>
         </div>
 
         <div class="section">
@@ -1170,9 +931,9 @@
             <h2><i class="fa-solid fa-file-lines"></i> تفاصيل كل صفحة</h2>
             <span class="pill">اختيارات ذكية</span>
           </div>
-          <p class="hint">هنا بتحدد: الصفحة فيها رسالة؟ جاليري؟ فيديو؟ موسيقى؟ وكمان أعداد كل نوع داخل الصفحة.</p>
+          <p class="hint">حدد عناصر كل صفحة.</p>
 
-          <div class="pages-grid">
+          <div class="pages-grid" id="pagesGrid">
             ${state.pages.map((p, i)=>pageCard(p, i)).join("")}
           </div>
         </div>
@@ -1201,7 +962,6 @@
             <ul class="sum-list">
               ${checklist.length ? checklist.map(x=>`<li>${escapeHtml(x)}</li>`).join("") : `<li class="sum-muted">مفيش ملفات مطلوبة — ده طلب نصي بسيط.</li>`}
             </ul>
-            <p class="hint" style="margin-top:10px">بعد ما تبعت الطلب، هنقولك تبعت الملفات على الواتساب (صور/فيديو/أغاني) بالترتيب.</p>
           </div>
         </div>
 
@@ -1212,19 +972,11 @@
           <div class="faq">
             <details>
               <summary>اللينك بيفضل قد إيه؟ <i class="fa-solid fa-chevron-down"></i></summary>
-              <p>اللينك بيكون ثابت قدر الإمكان، وممكن يبقى على Vercel/Domain. التفاصيل بنثبتها معاك وقت التسليم.</p>
-            </details>
-            <details>
-              <summary>ينفع تعديل بعد التسليم؟ <i class="fa-solid fa-chevron-down"></i></summary>
-              <p>أيوه — بنشتغل بنظام تعديلات، وأنت بتقولنا اللي عايزه لحد ما توصل للشكل اللي يبهرك.</p>
+              <p>اللينك بيكون ثابت قدر الإمكان، وممكن يبقى على Vercel/Domain.</p>
             </details>
             <details>
               <summary>الخصوصية إزاي؟ <i class="fa-solid fa-chevron-down"></i></summary>
-              <p>باسورد + صفحات مش ظاهرة لمحركات البحث حسب الاتفاق. تقدر تخليها Private بالكامل.</p>
-            </details>
-            <details>
-              <summary>هتستلم إيه في الآخر؟ <i class="fa-solid fa-chevron-down"></i></summary>
-              <p>لينك نهائي + باسورد + تجربة تصميم كاملة، وتقدر تبعته كهدية فوراً.</p>
+              <p>باسورد + صفحات مش ظاهرة لمحركات البحث حسب الاتفاق.</p>
             </details>
           </div>
         </div>
@@ -1237,12 +989,12 @@
     const on = !!state[key];
     return `
       <div class="field" style="flex:1 1 180px;min-width:180px">
-        <div class="toggle" data-toggle="${key}">
+        <div class="toggle" data-toggle="${escapeAttr(key)}">
           <div class="t">
-            <i class="fa-solid ${icon}"></i>
+            <i class="fa-solid ${escapeAttr(icon)}"></i>
             <div>
-              <div style="font-weight:1000;font-size:12px">${title}</div>
-              <div class="hint" style="margin:2px 0 0">${subtitle}</div>
+              <div style="font-weight:1000;font-size:12px">${escapeHtml(title)}</div>
+              <div class="hint" style="margin:2px 0 0">${escapeHtml(subtitle)}</div>
             </div>
           </div>
           <div class="switch ${on ? "on" : ""}" role="switch" aria-checked="${on}"></div>
@@ -1255,55 +1007,17 @@
     const v = Number(state[key] ?? 0);
     return `
       <div class="field" style="flex:1 1 180px;min-width:180px">
-        <div class="counter" data-counter="${key}" data-min="${min}" data-max="${max}">
+        <div class="counter" data-counter="${escapeAttr(key)}" data-min="${min}" data-max="${max}">
           <div class="c-l">
-            <i class="fa-solid ${icon}"></i>
+            <i class="fa-solid ${escapeAttr(icon)}"></i>
             <div>
-              <div style="font-weight:1000;font-size:12px">${title}</div>
+              <div style="font-weight:1000;font-size:12px">${escapeHtml(title)}</div>
               <div class="hint" style="margin:2px 0 0">من ${min} إلى ${max}</div>
             </div>
           </div>
           <div class="ctr">
             <button type="button" data-act="dec">−</button>
             <input type="number" inputmode="numeric" value="${v}" />
-            <button type="button" data-act="inc">+</button>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  function pageToggle(key, icon, title, subtitle, on){
-    return `
-      <div class="field" style="flex:1 1 200px;min-width:200px">
-        <div class="toggle" data-page-toggle="${key}">
-          <div class="t">
-            <i class="fa-solid ${icon}"></i>
-            <div>
-              <div style="font-weight:1000;font-size:12px">${title}</div>
-              <div class="hint" style="margin:2px 0 0">${subtitle}</div>
-            </div>
-          </div>
-          <div class="switch ${on ? "on" : ""}"></div>
-        </div>
-      </div>
-    `;
-  }
-
-  function pageCounter(key, icon, title, enabled, value, min, max){
-    return `
-      <div class="field" style="flex:1 1 180px;min-width:180px;opacity:${enabled?1:.55}">
-        <div class="counter" data-page-counter="${key}" data-min="${min}" data-max="${max}" ${enabled? "" : "data-disabled='1'"}>
-          <div class="c-l">
-            <i class="fa-solid ${icon}"></i>
-            <div>
-              <div style="font-weight:1000;font-size:12px">${title}</div>
-              <div class="hint" style="margin:2px 0 0">من ${min} إلى ${max}</div>
-            </div>
-          </div>
-          <div class="ctr">
-            <button type="button" data-act="dec">−</button>
-            <input type="number" inputmode="numeric" value="${Number(value||0)}" />
             <button type="button" data-act="inc">+</button>
           </div>
         </div>
@@ -1323,49 +1037,84 @@
       <div class="page-card" data-page-index="${i}">
         <div class="page-head">
           <b><span class="num">${i+1}</span> ${escapeHtml(p.title || ("الصفحة " + (i+1)))}</b>
-          <div class="page-tools">
-            <span class="pill">${flags.length ? flags.join(" • ") : "فارغة"}</span>
-          </div>
+          <span class="pill">${flags.length ? flags.join(" • ") : "فارغة"}</span>
         </div>
 
         <div class="page-options">
           <div class="row">
             <div class="field">
               <label>عنوان الصفحة (اختياري)</label>
-              <input data-p="title" placeholder="مثال: البداية / الذكرى / الرسالة..." value="${escapeAttr(p.title||"")}" />
+              <input data-p="title" placeholder="مثال: البداية..." value="${escapeAttr(p.title||"")}" />
             </div>
           </div>
 
           <div class="row">
-            ${pageToggle("includeIntro","fa-star","واجهة (Intro)","اسم بينوّر / أنيميشن / زر يبدأ", !!p.includeIntro)}
-            ${pageToggle("includeMessage","fa-feather-pointed","رسالة","رسالة من القلب", !!p.includeMessage)}
+            ${pageToggle("includeIntro","fa-star","واجهة (Intro)","اسم بينوّر / زر يبدأ", p.includeIntro)}
+            ${pageToggle("includeMessage","fa-feather-pointed","رسالة","رسالة من القلب", p.includeMessage)}
           </div>
 
           <div class="row">
-            ${pageToggle("includeGallery","fa-images","صور داخل الصفحة","جاليري / سلايدر", !!p.includeGallery)}
-            ${pageToggle("includeVideoBlock","fa-video","فيديو داخل الصفحة","مقاطع مميزة", !!p.includeVideoBlock)}
+            ${pageToggle("includeGallery","fa-images","صور داخل الصفحة","جاليري / سلايدر", p.includeGallery)}
+            ${pageToggle("includeVideoBlock","fa-video","فيديو داخل الصفحة","مقاطع مميزة", p.includeVideoBlock)}
           </div>
 
           <div class="row">
-            ${pageToggle("includeMusicBlock","fa-music","موسيقى داخل الصفحة","تشغيل أغنية/موسيقى", !!p.includeMusicBlock)}
+            ${pageToggle("includeMusicBlock","fa-music","موسيقى داخل الصفحة","تشغيل أغنية", p.includeMusicBlock)}
             <div class="field">
               <label>رسالة الصفحة (اختياري)</label>
-              <textarea data-p="messageText" placeholder="اكتب نص الرسالة اللي تحب يظهر...">${escapeHtml(p.messageText||"")}</textarea>
+              <textarea data-p="messageText" placeholder="اكتب نص الرسالة...">${escapeHtml(p.messageText||"")}</textarea>
             </div>
           </div>
 
           <div class="row">
-            ${pageCounter("galleryCount","fa-image","صور في الصفحة", !!p.includeGallery, p.galleryCount, 0, 60)}
-            ${pageCounter("videoCount","fa-film","فيديو في الصفحة", !!p.includeVideoBlock, p.videoCount, 0, 10)}
-            ${pageCounter("musicCount","fa-headphones","أغاني في الصفحة", !!p.includeMusicBlock, p.musicCount, 0, 10)}
+            ${pageCounter("galleryCount","fa-image","صور في الصفحة", p.includeGallery, p.galleryCount, 0, 60)}
+            ${pageCounter("videoCount","fa-film","فيديو في الصفحة", p.includeVideoBlock, p.videoCount, 0, 10)}
+            ${pageCounter("musicCount","fa-headphones","أغاني في الصفحة", p.includeMusicBlock, p.musicCount, 0, 10)}
           </div>
-
-          <p class="hint" style="margin:8px 0 0">ملحوظة: الأعداد دي لتسهيل التنظيم — هنطلب منك تبعت الملفات على الواتساب بعد الطلب.</p>
         </div>
       </div>
     `;
   }
 
+  function pageToggle(key, icon, title, subtitle, on){
+    return `
+      <div class="field" style="flex:1 1 200px;min-width:200px">
+        <div class="toggle" data-page-toggle="${escapeAttr(key)}">
+          <div class="t">
+            <i class="fa-solid ${escapeAttr(icon)}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${escapeHtml(title)}</div>
+              <div class="hint" style="margin:2px 0 0">${escapeHtml(subtitle)}</div>
+            </div>
+          </div>
+          <div class="switch ${on ? "on" : ""}"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function pageCounter(key, icon, title, enabled, value, min, max){
+    return `
+      <div class="field" style="flex:1 1 180px;min-width:180px;opacity:${enabled?1:.55}">
+        <div class="counter" data-page-counter="${escapeAttr(key)}" data-min="${min}" data-max="${max}" ${enabled? "" : "data-disabled='1'"}>
+          <div class="c-l">
+            <i class="fa-solid ${escapeAttr(icon)}"></i>
+            <div>
+              <div style="font-weight:1000;font-size:12px">${escapeHtml(title)}</div>
+              <div class="hint" style="margin:2px 0 0">من ${min} إلى ${max}</div>
+            </div>
+          </div>
+          <div class="ctr">
+            <button type="button" data-act="dec">−</button>
+            <input type="number" inputmode="numeric" value="${Number(value||0)}" />
+            <button type="button" data-act="inc">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // ========= Summary =========
   function renderSummaryBox(forceFull=false){
     const sum = buildSummary(forceFull);
     return `
@@ -1378,16 +1127,6 @@
     `;
   }
 
-  function pageFlagsText(p, i){
-    const f = [];
-    if(p.includeIntro) f.push("واجهة");
-    if(p.includeMessage) f.push("رسالة");
-    if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
-    if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
-    if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
-    return `#${i+1}: ${f.length? f.join(", ") : "—"}`;
-  }
-
   function buildSummary(full=false){
     const lines = [];
     lines.push(`🧾 Order ID: <b>${escapeHtml(state.orderId || "—")}</b>`);
@@ -1395,11 +1134,8 @@
     const occ = state.occasion ? `المناسبة: <b>${escapeHtml(state.occasion)}</b>` : `<span class="sum-muted">المناسبة: لم يتم الاختيار</span>`;
     lines.push(occ);
 
-    if(state.customIdea){
-      lines.push(`فكرة خاصة: <b>${escapeHtml(shorten(state.customIdea, 80))}</b>`);
-    }else{
-      lines.push(`<span class="sum-muted">فكرة خاصة: (اختياري)</span>`);
-    }
+    if(state.customIdea) lines.push(`فكرة خاصة: <b>${escapeHtml(shorten(state.customIdea, 80))}</b>`);
+    else lines.push(`<span class="sum-muted">فكرة خاصة: (اختياري)</span>`);
 
     lines.push(`الستايل: <b>${escapeHtml(state.tone||"")}</b> — المستلم: <b>${escapeHtml(state.receiverType||"")}</b>`);
 
@@ -1412,8 +1148,6 @@
 
     if(full || state.step >= 2){
       lines.push(`عدد الصفحات: <b>${state.pagesCount}</b>`);
-      if(state.globalTitle) lines.push(`عنوان عام: <b>${escapeHtml(state.globalTitle)}</b>`);
-
       const g = [];
       if(state.includePhotos) g.push(`صور (${state.photosCount})`);
       if(state.includeVideos) g.push(`فيديو (${state.videosCount})`);
@@ -1428,15 +1162,25 @@
     return lines;
   }
 
+  function pageFlagsText(p, i){
+    const f = [];
+    if(p.includeIntro) f.push("واجهة");
+    if(p.includeMessage) f.push("رسالة");
+    if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
+    if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
+    if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
+    return `#${i+1}: ${f.length? f.join(", ") : "—"}`;
+  }
+
   function buildAssetsChecklist(){
     const items = [];
     const photos = state.includePhotos ? (Number(state.photosCount||0)) : 0;
     const videos = state.includeVideos ? (Number(state.videosCount||0)) : 0;
     const songs  = state.includeSongs  ? (Number(state.songsCount||0))  : 0;
 
-    if(photos>0) items.push(`📸 صور: ${photos} (أبعتهم بالترتيب المطلوب / أسماء واضحة)`);
-    if(videos>0) items.push(`🎥 فيديو: ${videos} (يفضل روابط Drive أو ملفات مضغوطة لو حجم كبير)`);
-    if(songs>0)  items.push(`🎵 أغاني/موسيقى: ${songs} (اسم الأغنية أو ملف mp3/رابط)`);
+    if(photos>0) items.push(`📸 صور: ${photos}`);
+    if(videos>0) items.push(`🎥 فيديو: ${videos}`);
+    if(songs>0)  items.push(`🎵 أغاني/موسيقى: ${songs}`);
 
     const pageNotes = [];
     state.pages.forEach((p,i)=>{
@@ -1446,22 +1190,182 @@
       if(p.includeMusicBlock && Number(p.musicCount||0)>0) a.push(`موسيقى(${p.musicCount})`);
       if(a.length) pageNotes.push(`صفحة ${i+1}: ${a.join(" / ")}`);
     });
-    if(pageNotes.length) items.push(`🧩 توزيع الملفات حسب الصفحات: ${pageNotes.join(" — ")}`);
+    if(pageNotes.length) items.push(`🧩 توزيع الملفات: ${pageNotes.join(" — ")}`);
     return items;
   }
 
-  // ========= Validation =========
-  function clearErrors(){
-    document.querySelectorAll(".error").forEach(e=>e.classList.remove("error"));
-  }
-  function req(id){
-    const v = (state[id]||"").trim();
-    const el = document.getElementById(id);
-    if(!v){
-      if(el) el.classList.add("error");
-      return false;
+  // ========= WhatsApp =========
+  function buildWhatsAppText(){
+    const dt = new Date(state.createdAt || Date.now());
+    const when = dt.toLocaleString("ar-EG");
+
+    const lines = [];
+    lines.push("✨ *طلب جديد من HeartLink (Order Builder)*");
+    lines.push(`🧾 *Order ID:* ${state.orderId || "—"}`);
+    lines.push(`🕒 *التاريخ:* ${when}`);
+    lines.push("");
+    lines.push(`🎉 *المناسبة:* ${state.occasion || "—"}`);
+    lines.push(`👤 *المستلم:* ${state.receiverType || "—"}`);
+    lines.push(`🎨 *الستايل:* ${state.tone || "—"}`);
+    if(state.customIdea) lines.push(`💡 *فكرة خاصة:* ${sanitizeForWA(shorten(state.customIdea, 220))}`);
+    lines.push("");
+    lines.push("🔐 *الخصوصية*");
+    lines.push(`• باسورد الموقع: ${state.password || "—"}`);
+    if(state.colors) lines.push(`• ثيم/ألوان: ${state.colors}`);
+    lines.push(`• سرعة التنفيذ: ${state.delivery || "—"}`);
+    lines.push("");
+    lines.push("📌 *بيانات التواصل*");
+    lines.push(`• الاسم: ${state.customerName || "—"}`);
+    lines.push(`• التواصل: ${state.contact || "—"}`);
+    lines.push("");
+    lines.push(`📄 *عدد الصفحات:* ${state.pagesCount}`);
+    state.pages.forEach((p,i)=>{
+      const f = [];
+      if(p.includeIntro) f.push("واجهة");
+      if(p.includeMessage) f.push("رسالة");
+      if(p.includeGallery) f.push(`صور(${p.galleryCount||0})`);
+      if(p.includeVideoBlock) f.push(`فيديو(${p.videoCount||0})`);
+      if(p.includeMusicBlock) f.push(`موسيقى(${p.musicCount||0})`);
+      const title = (p.title||`الصفحة ${i+1}`).trim();
+      lines.push(`• صفحة ${i+1} (${title}): ${f.length?f.join(" / "):"—"}`);
+      if(p.includeMessage && p.messageText){
+        lines.push(`  - نص رسالة الصفحة: ${sanitizeForWA(shorten(p.messageText, 180))}`);
+      }
+    });
+
+    lines.push("");
+    lines.push("📦 *ملفات هتبعتها*");
+    const checklist = buildAssetsChecklist();
+    if(checklist.length) checklist.forEach(x=>lines.push("• " + sanitizeForWA(x)));
+    else lines.push("• لا يوجد ملفات.");
+
+    if(state.notes){
+      lines.push("");
+      lines.push("📝 *ملاحظات إضافية*");
+      lines.push(sanitizeForWA(shorten(state.notes, 260)));
     }
-    return true;
+
+    lines.push("");
+    lines.push("✅ *جاهز أبعت الملفات بعد ما تقولّي الترتيب المطلوب*");
+    return lines.join("\n");
+  }
+
+  function updateWhatsAppLink(){
+    const text = buildWhatsAppText();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const wa = document.getElementById("waBtn");
+    if(wa) wa.href = url;
+  }
+
+  // ========= Copy =========
+  async function copyOrderSummary(){
+    const text =
+      stripHtml(buildSummary(true).map(x=>"- " + x).join("\n")) +
+      "\n\nقائمة الملفات:\n" + buildAssetsChecklist().map(x=>"- " + x).join("\n");
+
+    try{
+      await navigator.clipboard.writeText(text);
+      toast("اتنسخ الملخص");
+    }catch(e){
+      toast("انسخ يدويًا");
+    }
+  }
+
+  // ========= Finish =========
+  function finishAndShowSuccess(){
+    const ok = validateStep(3);
+    if(!ok) return;
+
+    const body = document.getElementById("cardBody");
+    const waText = buildWhatsAppText();
+
+    body.innerHTML = `
+      <div class="success-screen animate__animated animate__fadeIn">
+        <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+        <h2 style="margin:0 0 8px;font-size:18px;font-weight:1000">تم إنشاء الطلب ✅</h2>
+        <p class="hint" style="margin:0 0 12px">تقدر تبعت الرسالة الجاهزة على الواتساب أو تنسخها.</p>
+
+        <div class="section" style="text-align:right">
+          <div class="section-h">
+            <h2><i class="fa-solid fa-message"></i> رسالة جاهزة للواتساب</h2>
+          </div>
+          <textarea id="waTextArea" style="min-height:210px;direction:rtl" readonly>${escapeHtml(waText)}</textarea>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+            <a class="btn whatsapp" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> افتح واتساب
+            </a>
+            <button class="btn primary" onclick="window.__HL.copyWAText()">
+              <i class="fa-solid fa-copy"></i> نسخ الرسالة
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const f = document.getElementById("footerActions");
+    f.innerHTML = `
+      <button class="btn ghost" onclick="window.__HL.resetToNew()">
+        <i class="fa-solid fa-house"></i> طلب جديد
+      </button>
+      <button class="btn ghost" style="border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)" onclick="window.__HL.resetAll()">
+        <i class="fa-solid fa-trash"></i> مسح كل شيء
+      </button>
+    `;
+    save();
+    toast("جاهز للإرسال");
+  }
+
+  async function copyWAText(){
+    const ta = document.getElementById("waTextArea");
+    if(!ta) return;
+    try{
+      await navigator.clipboard.writeText(ta.value);
+      toast("اتنسخت الرسالة");
+    }catch(e){
+      toast("انسخ يدويًا");
+    }
+  }
+
+  function resetAll(){
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    Object.keys(state).forEach(k=>delete state[k]);
+    Object.assign(state, {
+      step:0, navDir:"next", orderId:"", createdAt:"",
+      occasion:"", customIdea:"", receiverType:"حبيبتي/حبيبي",
+      customerName:"", contact:"", password:"",
+      tone:"رومانسي", colors:"بنفسجي/أزرق", delivery:"عادي", notes:"",
+      pagesCount:1, pages:[],
+      includePhotos:true, includeVideos:true, includeSongs:true,
+      photosCount:10, videosCount:2, songsCount:1,
+      globalTitle:""
+    });
+    ensurePages();
+    ensureMeta();
+    save();
+    toast("تم المسح");
+    render();
+  }
+
+  function resetToNew(){
+    state.step = 0;
+    state.navDir = "next";
+    render();
+  }
+
+  // ========= Navigation + Validation =========
+  function prevStep(){
+    state.navDir = "prev";
+    state.step = Math.max(0, state.step - 1);
+    render();
+  }
+
+  function nextStep(){
+    const ok = validateStep(state.step);
+    if(!ok) return;
+    state.navDir = "next";
+    state.step = Math.min(steps.length-1, state.step + 1);
+    render();
   }
 
   function validateStep(step){
@@ -1493,49 +1397,12 @@
       }
       return true;
     }
+
     return true;
   }
 
-  // ========= Navigation =========
-  function prevStep(){
-    state.navDir = "prev";
-    state.step = Math.max(0, state.step - 1);
-    render();
-  }
-
-  function nextStep(){
-    const ok = validateStep(state.step);
-    if(!ok) return;
-    state.navDir = "next";
-    state.step = Math.min(steps.length-1, state.step + 1);
-    render();
-  }
-
-  // ========= WhatsApp =========
-  function buildWhatsAppText(){
-    const when = new Date(state.createdAt || Date.now()).toLocaleString("ar-EG");
-
-    const lines = [];
-    lines.push("✨ *طلب جديد من HeartLink (Order Builder)*");
-    lines.push(`🧾 *Order ID:* ${state.orderId || "—"}`);
-    lines.push(`🕒 *التاريخ:* ${when}`);
-    lines.push("");
-    lines.push(`🎉 *المناسبة:* ${state.occasion || "—"}`);
-    lines.push(`👤 *المستلم:* ${state.receiverType || "—"}`);
-    lines.push(`🎨 *الستايل:* ${state.tone || "—"}`);
-    if(state.customIdea) lines.push(`💡 *فكرة خاصة:* ${sanitizeForWA(shorten(state.customIdea, 220))}`);
-
-    lines.push("");
-    lines.push("🔐 *الخصوصية*");
-    lines.push(`• باسورد الموقع: ${state.password || "—"}`);
-    if(state.colors) lines.push(`• ثيم/ألوان: ${state.colors}`);
-    lines.push(`• سرعة التنفيذ: ${state.delivery || "—"}`);
-
-    lines.push("");
-    lines.push("📌 *بيانات التواصل*");
-    lines.push(`• الاسم: ${state.customerName || "—"}`);
-    lines.push(`• التواصل: ${state.contact || "—"}`);
-
-    lines.push("");
-    lines.push(`📄 *عدد الصفحات:* ${state.pagesCount}`);
-    if(state.globalTitle) lines.push(`🏷️ *عنوان عام:* ${sanitizeF
+  function req(id){
+    const v = (state[id]||"").trim();
+    const el = document.getElementById(id);
+    if(!v){
+      if(el) el.classList.add("err
