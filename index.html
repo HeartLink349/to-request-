@@ -11,60 +11,114 @@
 
   <style>
     :root{
-      --primary:#6366f1;
+      --primary:#5b7cff;
       --secondary:#8b5cf6;
-      --accent:#06b6d4;
-      --bg:#030712;
-      --glass:rgba(15,23,42,.6);
-      --glass-border:rgba(255,255,255,.08);
+      --accent:#30d5ff;
+      --accent-2:#7af0ff;
+      --bg:#070b14;
+      --bg-secondary:#0b1220;
+      --bg-third:#111827;
+      --glass:rgba(15,23,42,.52);
+      --glass-strong:rgba(15,23,42,.74);
+      --glass-soft:rgba(255,255,255,.04);
+      --glass-border:rgba(255,255,255,.10);
       --text:#f8fafc;
-      --text-dim:#94a3b8;
+      --text-dim:#9fb0c8;
       --success:#22c55e;
       --warn:#f59e0b;
       --danger:#ef4444;
-    }
-    .light-mode{
-      --bg:#f8fafc;
-      --glass:rgba(255,255,255,.82);
-      --glass-border:rgba(0,0,0,.06);
-      --text:#0f172a;
-      --text-dim:#64748b;
+      --gold:#ffd700;
+      --shadow:0 24px 70px rgba(0,0,0,.38);
+      --shadow-soft:0 10px 30px rgba(0,0,0,.18);
+      --ios-blur:blur(30px);
     }
 
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Segoe UI',system-ui,sans-serif}
+    .light-mode{
+      --primary:#3b82f6;
+      --secondary:#7c3aed;
+      --accent:#0891b2;
+      --accent-2:#22d3ee;
+      --bg:#eef4ff;
+      --bg-secondary:#f8fbff;
+      --bg-third:#e9f1ff;
+      --glass:rgba(255,255,255,.68);
+      --glass-strong:rgba(255,255,255,.84);
+      --glass-soft:rgba(15,23,42,.03);
+      --glass-border:rgba(15,23,42,.08);
+      --text:#0f172a;
+      --text-dim:#5f6f86;
+      --shadow:0 20px 50px rgba(32,67,145,.12);
+      --shadow-soft:0 10px 26px rgba(32,67,145,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+      font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif
+    }
+
+    html,body{
+      height:100%;
+    }
+
     body{
-      background:var(--bg);
+      background:
+        radial-gradient(720px 380px at 10% 10%, rgba(91,124,255,.18), transparent 60%),
+        radial-gradient(620px 320px at 90% 8%, rgba(48,213,255,.13), transparent 60%),
+        radial-gradient(520px 320px at 50% 100%, rgba(139,92,246,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg) 55%, var(--bg-third) 100%);
       color:var(--text);
       margin:0;
       height:100dvh;
       display:flex;
       flex-direction:column;
       overflow:hidden;
-      transition:.5s cubic-bezier(.4,0,.2,1);
+      transition:background .45s ease,color .35s ease;
+      position:relative;
     }
 
     .bg-glow{
       position:fixed;
-      width:520px;height:520px;
-      background:radial-gradient(circle,var(--primary) 0%, transparent 70%);
+      width:520px;
+      height:520px;
+      background:radial-gradient(circle, rgba(91,124,255,.30) 0%, transparent 70%);
       filter:blur(130px);
       opacity:.16;
       z-index:-1;
       animation:floating 16s infinite alternate ease-in-out;
+      pointer-events:none;
+      top:-150px;
+      left:-120px;
     }
+
     .bg-glow.b2{
-      right:-180px;bottom:-160px;
-      background:radial-gradient(circle,var(--accent) 0%, transparent 70%);
+      right:-180px;
+      bottom:-160px;
+      left:auto;
+      top:auto;
+      background:radial-gradient(circle, rgba(48,213,255,.25) 0%, transparent 70%);
       opacity:.12;
       animation-duration:18s;
     }
+
+    .bg-glow.b3{
+      width:420px;
+      height:420px;
+      top:40%;
+      left:50%;
+      transform:translateX(-50%);
+      background:radial-gradient(circle, rgba(139,92,246,.18) 0%, transparent 70%);
+      opacity:.10;
+      animation-duration:20s;
+    }
+
     @keyframes floating{
-      0%{transform:translate(-20%,-20%)}
-      100%{transform:translate(25%,22%)}
+      0%{transform:translate(-12%,-12%) scale(1)}
+      100%{transform:translate(22%,18%) scale(1.08)}
     }
 
     header{
-      padding:14px 18px;
+      padding:15px 20px;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -72,61 +126,99 @@
       height:90px;
       animation:fadeInDown .7s ease;
       gap:12px;
+      position:relative;
     }
+
     .header-tagline{
-      display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex:1;min-width:0
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:3px;
+      flex:1;
+      min-width:0;
     }
+
     .tagline-main{
-      font-size:15px;font-weight:900;white-space:nowrap;letter-spacing:.2px;color:#ffffff;
-      display:flex;align-items:center;gap:8px;min-width:0
+      font-size:15px;
+      font-weight:900;
+      white-space:nowrap;
+      letter-spacing:.2px;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:0;
     }
+
     .tagline-main .pill{
-      font-size:10px;font-weight:900;
-      padding:6px 10px;border-radius:999px;
+      font-size:10px;
+      font-weight:900;
+      padding:6px 10px;
+      border-radius:999px;
       background:rgba(99,102,241,.12);
       border:1px solid rgba(99,102,241,.28);
       color:var(--text);
       letter-spacing:.6px;
       flex:0 0 auto;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
     }
+
     .tagline-main i{
-      color:#ffd700;font-size:13px;
+      color:var(--gold);
+      font-size:13px;
       filter:drop-shadow(0 0 6px rgba(255,215,0,.35));
       animation:crownPulse 2s infinite ease-in-out;
       flex:0 0 auto;
     }
+
     .tagline-sub{
-      font-size:9px;color:var(--primary);font-weight:800;letter-spacing:1.6px;opacity:.85;text-transform:uppercase
+      font-size:9px;
+      color:var(--primary);
+      font-weight:800;
+      letter-spacing:1.6px;
+      opacity:.85;
+      text-transform:uppercase;
     }
+
     @keyframes crownPulse{
       0%,100%{transform:scale(1) rotate(0deg)}
       50%{transform:scale(1.18) rotate(10deg)}
     }
 
     .theme-toggle{
-      width:42px;height:42px;border-radius:14px;background:var(--glass);
-      border:1px solid var(--glass-border);color:var(--text);cursor:pointer;
-      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-      display:flex;align-items:center;justify-content:center;transition:.25s;
-      box-shadow:0 10px 28px rgba(0,0,0,.22);
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:var(--glass);
+      border:1px solid var(--glass-border);
+      color:var(--text);
+      cursor:pointer;
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:.25s;
+      box-shadow:var(--shadow-soft);
       flex:0 0 auto;
     }
+
     .theme-toggle:active{transform:scale(.92)}
 
     main{
       flex:1;
-      padding:0 18px;
+      padding:0 18px 18px;
       position:relative;
       display:flex;
       justify-content:center;
       align-items:center;
       overflow:hidden;
-      margin-bottom:26px;
     }
 
     .wrap{
       width:100%;
-      max-width:520px;
+      max-width:540px;
       height:100%;
       display:flex;
       align-items:center;
@@ -135,17 +227,29 @@
 
     .glass-card{
       width:100%;
-      background:var(--glass);
-      backdrop-filter:blur(42px);
-      -webkit-backdrop-filter:blur(42px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+        var(--glass);
+      backdrop-filter:blur(42px) saturate(160%);
+      -webkit-backdrop-filter:blur(42px) saturate(160%);
       border:1px solid var(--glass-border);
       border-radius:34px;
-      box-shadow:0 28px 60px -14px rgba(0,0,0,.62);
+      box-shadow:var(--shadow);
       overflow:hidden;
       position:relative;
       display:flex;
       flex-direction:column;
-      max-height:calc(100dvh - 110px);
+      max-height:calc(100dvh - 120px);
+    }
+
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.10), transparent 32%, transparent 68%, rgba(255,255,255,.04));
+      border-radius:inherit;
     }
 
     .card-top{
@@ -154,66 +258,105 @@
       display:flex;
       flex-direction:column;
       gap:10px;
+      position:relative;
+      z-index:2;
     }
 
     .progress-row{
-      display:flex;align-items:center;justify-content:space-between;gap:10px
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px
     }
+
     .step-dots{
-      display:flex;align-items:center;gap:8px
+      display:flex;
+      align-items:center;
+      gap:8px
     }
+
     .dot{
-      width:9px;height:9px;border-radius:50%;
+      width:9px;
+      height:9px;
+      border-radius:50%;
       background:rgba(148,163,184,.28);
       border:1px solid rgba(148,163,184,.18);
       transition:.25s;
     }
-    .dot.active{background:rgba(99,102,241,.9);border-color:rgba(99,102,241,.5);box-shadow:0 0 0 6px rgba(99,102,241,.12)}
-    .dot.done{background:rgba(34,197,94,.95);border-color:rgba(34,197,94,.55)}
-    .top-actions{
-      display:flex;align-items:center;gap:8px
+
+    .dot.active{
+      background:rgba(99,102,241,.9);
+      border-color:rgba(99,102,241,.5);
+      box-shadow:0 0 0 6px rgba(99,102,241,.12)
     }
+
+    .dot.done{
+      background:rgba(34,197,94,.95);
+      border-color:rgba(34,197,94,.55)
+    }
+
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:8px
+    }
+
     .mini-btn{
-      height:34px;border-radius:12px;
+      height:34px;
+      border-radius:12px;
       background:rgba(255,255,255,.03);
       border:1px solid var(--glass-border);
       color:var(--text);
       padding:0 12px;
-      display:flex;align-items:center;gap:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
       font-weight:900;
       cursor:pointer;
       transition:.25s;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
     }
+
     .mini-btn i{opacity:.9}
     .mini-btn:active{transform:scale(.97)}
-    .mini-btn.danger{border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}
+    .mini-btn.danger{
+      border-color:rgba(239,68,68,.35);
+      background:rgba(239,68,68,.08)
+    }
     .mini-btn.danger i{color:var(--danger)}
 
     .title-row{
-      display:flex;align-items:center;justify-content:space-between;gap:10px
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px
     }
+
     .title-row h1{
       margin:0;
       font-size:16px;
       font-weight:1000;
       letter-spacing:.2px;
-      display:flex;align-items:center;gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
+
     .title-row h1 span{
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    }
-    .subtitle{
-      margin:0;
-      font-size:11px;
-      color:var(--text-dim);
-      line-height:1.55;
+      background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
     .bar{
-      height:10px;border-radius:999px;background:rgba(148,163,184,.16);
-      overflow:hidden;border:1px solid var(--glass-border);
+      height:10px;
+      border-radius:999px;
+      background:rgba(148,163,184,.16);
+      overflow:hidden;
+      border:1px solid var(--glass-border);
     }
+
     .bar > div{
       height:100%;
       width:0%;
@@ -227,7 +370,10 @@
       padding:14px 16px 16px;
       overflow:auto;
       scrollbar-width:none;
+      position:relative;
+      z-index:2;
     }
+
     .card-body::-webkit-scrollbar{display:none}
 
     .grid{
@@ -241,6 +387,7 @@
       border:1px solid var(--glass-border);
       border-radius:26px;
       padding:14px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
     }
 
     .section-h{
@@ -250,6 +397,7 @@
       gap:10px;
       margin-bottom:10px;
     }
+
     .section-h h2{
       margin:0;
       font-size:13px;
@@ -259,12 +407,18 @@
       align-items:center;
       gap:10px;
     }
+
     .section-h h2 i{
-      width:34px;height:34px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background:rgba(99,102,241,.12);
       border:1px solid rgba(99,102,241,.25);
       color:var(--primary);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
 
     .row{
@@ -272,10 +426,12 @@
       gap:10px;
       flex-wrap:wrap;
     }
+
     .field{
       flex:1 1 140px;
       min-width:140px;
     }
+
     label{
       display:block;
       font-size:10px;
@@ -284,9 +440,10 @@
       letter-spacing:.4px;
       margin:0 6px 6px 0;
     }
-    input, select, textarea{
+
+    input,select,textarea{
       width:100%;
-      background:rgba(255,255,255,.02);
+      background:rgba(255,255,255,.03);
       border:1px solid var(--glass-border);
       color:var(--text);
       border-radius:16px;
@@ -294,30 +451,27 @@
       outline:none;
       transition:.25s;
       font-size:12px;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
-    textarea{min-height:92px;resize:none;line-height:1.6}
-    input:focus, select:focus, textarea:focus{
+
+    textarea{
+      min-height:92px;
+      resize:none;
+      line-height:1.6
+    }
+
+    input:focus,select:focus,textarea:focus{
       border-color:rgba(99,102,241,.55);
       box-shadow:0 0 0 6px rgba(99,102,241,.12);
     }
 
-    .phone-input-group {
-      display: flex;
-      gap: 8px;
-      direction: ltr; 
-    }
-    .phone-input-group select {
-      flex: 0 0 100px;
-      padding: 12px 4px;
-      font-size: 11px;
-      text-align: center;
-    }
-
     .chips{
       display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
       gap:10px;
     }
+
     .chip{
       cursor:pointer;
       user-select:none;
@@ -329,42 +483,76 @@
       align-items:center;
       gap:8px;
       transition:.25s;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
     }
+
     .chip .ic{
-      width:32px;height:32px;border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
+      width:32px;
+      height:32px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background:rgba(255,255,255,.03);
       border:1px solid var(--glass-border);
       color:var(--text);
       flex:0 0 auto;
-      font-size: 14px;
+      font-size:14px;
     }
+
     .chip b{
       font-size:11px;
       font-weight:1000;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
+
+    .chip:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.18);
+    }
+
     .chip.active{
       border-color:rgba(99,102,241,.6);
       background:rgba(99,102,241,.10);
       transform:translateY(-2px);
+      box-shadow:0 12px 24px rgba(99,102,241,.10);
     }
-    .chip.active .ic{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff}
+
+    .chip.active .ic{
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      border-color:transparent;
+      color:#fff
+    }
 
     .summary{
       border-radius:26px;
       border:1px dashed rgba(99,102,241,.45);
       background:rgba(99,102,241,.06);
       padding:14px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
     }
+
     .summary h3{
       margin:0 0 10px 0;
       font-size:12px;
       font-weight:1000;
-      display:flex;align-items:center;gap:10px
+      display:flex;
+      align-items:center;
+      gap:10px
     }
+
     .summary h3 i{color:var(--primary)}
-    .sum-list{margin:0;padding:0 18px 0 0;font-size:11px;color:var(--text);line-height:1.7}
+
+    .sum-list{
+      margin:0;
+      padding:0 18px 0 0;
+      font-size:11px;
+      color:var(--text);
+      line-height:1.8
+    }
+
     .sum-list li{margin:4px 0}
 
     .footer-actions{
@@ -374,7 +562,10 @@
       gap:10px;
       flex-wrap:wrap;
       background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.10) 100%);
+      position:relative;
+      z-index:2;
     }
+
     .btn{
       flex:1 1 160px;
       min-width:160px;
@@ -391,25 +582,33 @@
       transition:.25s;
       color:#fff;
       text-decoration:none;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
     }
+
     .btn:active{transform:scale(.97)}
+
     .btn.primary{
       background:linear-gradient(135deg,var(--primary),var(--secondary));
       box-shadow:0 14px 28px rgba(99,102,241,.22);
     }
+
     .btn.ghost{
       background:rgba(255,255,255,.03);
       border:1px solid var(--glass-border);
       color:var(--text);
     }
+
     .btn.success{
       background:linear-gradient(135deg, var(--success), #16a34a);
       box-shadow:0 14px 28px rgba(34,197,94,.20);
     }
+
     .btn.whatsapp{
       background:#25D366;
       box-shadow:0 14px 28px rgba(37,211,102,.18);
     }
+
     .btn.disabled{
       opacity:.55;
       pointer-events:none;
@@ -436,62 +635,71 @@
       gap:10px;
       align-items:center;
     }
-    .toast.show{display:flex;animation:fadeInUp .25s ease}
+
+    .toast.show{
+      display:flex;
+      animation:fadeInUp .25s ease
+    }
 
     .success-screen{
       text-align:center;
       padding:8px 2px;
     }
+
     .success-icon{
-      width:84px;height:84px;border-radius:50%;
+      width:84px;
+      height:84px;
+      border-radius:50%;
       margin:4px auto 12px;
-      display:flex;align-items:center;justify-content:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background:rgba(34,197,94,.14);
       border:1px solid rgba(34,197,94,.28);
       box-shadow:0 18px 40px rgba(34,197,94,.12);
       animation:pulse 1.4s infinite ease-in-out;
     }
-    .success-icon i{font-size:34px;color:var(--success)}
-    .order-number-badge{
-      background:rgba(99,102,241,.12);
-      border:1px solid rgba(99,102,241,.2);
-      padding:8px 16px;
-      border-radius:12px;
-      display:inline-block;
-      margin:10px 0;
-      font-family:monospace;
-      font-weight:bold;
-      color:var(--primary);
+
+    .success-icon i{
+      font-size:34px;
+      color:var(--success)
     }
+
     @keyframes pulse{
       0%,100%{transform:scale(1)}
       50%{transform:scale(1.06)}
     }
 
-    .footer-copyright-tag{
-      position:fixed;
-      bottom:8px;
-      left:0;
-      width:100%;
-      text-align:center;
-      font-size:9px;
-      color:var(--text-dim);
-      opacity:.55;
-      z-index:999;
-      pointer-events:none;
-      letter-spacing:1px;
+    @keyframes fadeInDown{
+      from{opacity:0;transform:translateY(-16px)}
+      to{opacity:1;transform:translateY(0)}
     }
 
-    @keyframes fadeInDown{ from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeInUp{ from{opacity:0;transform:translate(-50%, 12px)} to{opacity:1;transform:translate(-50%, 0)} }
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translate(-50%, 12px)}
+      to{opacity:1;transform:translate(-50%, 0)}
+    }
 
-    .req{color:#ffd700;font-weight:1000}
+    .req{
+      color:#ffd700;
+      font-weight:1000
+    }
+
+    @media (max-width:560px){
+      header{ padding:14px 14px; }
+      .tagline-main{ font-size:14px; }
+      main{ padding:0 12px 18px; }
+      .glass-card{ border-radius:28px; max-height:calc(100dvh - 112px); }
+      .chips{ grid-template-columns:repeat(2,1fr); }
+      .btn{ min-width:100%; }
+    }
   </style>
 </head>
 
 <body>
   <div class="bg-glow"></div>
   <div class="bg-glow b2"></div>
+  <div class="bg-glow b3"></div>
 
   <header>
     <div class="header-tagline">
@@ -531,24 +739,17 @@
     </div>
   </main>
 
-  <div class="footer-copyright-tag">© 2026 HEARTLINK — ORDER EXPERIENCE</div>
   <div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toastText">تم</span></div>
 
 <script>
   const WHATSAPP_NUMBER = "201125674359";
-  const STORAGE_KEY = "heartlink_order_builder_v6";
-  const TELEGRAM_TOKEN = "8171416031:AAG2xu_PbdBC9IcRlnB7o8-Ja609JFRdSMU";
-  const TELEGRAM_CHAT_ID = "7363916248";
+  const STORAGE_KEY = "heartlink_simple_builder_v1";
 
   const state = {
     step: 0,
     occasion: "",
     customIdea: "",
-    customerName: "",
-    countryCode: "+20",
-    contact: "",
     notes: "",
-    orderID: "",
     giftTypes: []
   };
 
@@ -578,31 +779,7 @@
     { key: "QR", icon: "fa-qrcode" }
   ];
 
-  const COUNTRY_CODES = [
-    { n: "مصر", c: "+20" }, { n: "السعودية", c: "+966" }, { n: "الإمارات", c: "+971" }, { n: "الكويت", c: "+965" },
-    { n: "قطر", c: "+974" }, { n: "البحرين", c: "+973" }, { n: "عمان", c: "+968" }, { n: "الأردن", c: "+962" },
-    { n: "العراق", c: "+964" }, { n: "لبنان", c: "+961" }, { n: "سوريا", c: "+963" }, { n: "فلسطين", c: "+970" },
-    { n: "المغرب", c: "+212" }, { n: "تونس", c: "+216" }, { n: "الجزائر", c: "+213" }, { n: "ليبيا", c: "+218" },
-    { n: "السودان", c: "+249" }, { n: "اليمن", c: "+967" }, { n: "موريتانيا", c: "+222" }, { n: "الصومال", c: "+252" },
-    { n: "جيبوتي", c: "+253" }, { n: "جزر القمر", c: "+269" }, { n: "تركيا", c: "+90" }, { n: "أمريكا", c: "+1" },
-    { n: "بريطانيا", c: "+44" }, { n: "فرنسا", c: "+33" }, { n: "ألمانيا", c: "+49" }, { n: "إيطاليا", c: "+39" },
-    { n: "إسبانيا", c: "+34" }, { n: "روسيا", c: "+7" }, { n: "الصين", c: "+86" }, { n: "اليابان", c: "+81" },
-    { n: "الهند", c: "+91" }, { n: "باكستان", c: "+92" }, { n: "إندونيسيا", c: "+62" }, { n: "ماليزيا", c: "+60" },
-    { n: "كندا", c: "+1" }, { n: "أستراليا", c: "+61" }, { n: "البرازيل", c: "+55" }, { n: "المكسيك", c: "+52" },
-    { n: "إيران", c: "+98" }, { n: "أوكرانيا", c: "+380" }, { n: "هولندا", c: "+31" }, { n: "بلجيكا", c: "+32" },
-    { n: "سويسرا", c: "+41" }, { n: "السويد", c: "+46" }, { n: "النرويج", c: "+47" }, { n: "الدنمارك", c: "+45" }
-  ];
-
-  const steps = [{ title: "المناسبة" }, { title: "البيانات" }, { title: "نوع الهدية" }, { title: "مراجعة" }];
-
-  function generateOrderID() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let result = '';
-    for (let i = 0; i < 12; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  }
+  const steps = [{ title: "المناسبة" }, { title: "نوع الهدية" }, { title: "تفاصيل إضافية" }, { title: "مراجعة" }];
 
   function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   function load(){
@@ -626,13 +803,13 @@
     save();
     renderDots();
     document.getElementById("barFill").style.width = Math.round(((state.step) / (steps.length-1)) * 100) + "%";
-    
+
     const body = document.getElementById("cardBody");
     if(state.step === 0) body.innerHTML = stepOccasion();
-    else if(state.step === 1) body.innerHTML = stepDetails();
-    else if(state.step === 2) body.innerHTML = stepGiftType();
+    else if(state.step === 1) body.innerHTML = stepGiftType();
+    else if(state.step === 2) body.innerHTML = stepNotes();
     else if(state.step === 3) body.innerHTML = stepReview();
-    
+
     renderFooter();
     wireEvents();
   }
@@ -654,7 +831,7 @@
         <button class="btn ghost ${state.step === 0 ? "disabled" : ""}" onclick="prevStep()">رجوع</button>
         <button class="btn primary" onclick="nextStep()">التالي</button>
       `;
-    } else if (state.step === steps.length - 1) {
+    } else {
       f.innerHTML = `
         <button class="btn success" onclick="finish()">تأكيد الطلب</button>
         <button class="btn ghost" onclick="prevStep()">تعديل</button>
@@ -676,37 +853,11 @@
     `;
   }
 
-  function stepDetails(){
-    return `
-      <div class="grid">
-        <div class="section">
-          <div class="section-h"><h2><i class="fa-solid fa-user-tag"></i> بيانات التواصل <span class="req">*</span></h2></div>
-          <div class="row">
-            <div class="field"><label>اسمك <span class="req">*</span></label><input id="customerName" value="${state.customerName}" placeholder="اكتب اسمك هنا" /></div>
-            <div class="field">
-              <label>رقم التواصل (واتساب) <span class="req">*</span></label>
-              <div class="phone-input-group">
-                <input type="tel" id="contact" value="${state.contact}" placeholder="رقم الموبايل" style="flex:1" />
-                <select id="countryCode">
-                  ${COUNTRY_CODES.map(c => `<option value="${c.c}" ${state.countryCode === c.c ? "selected" : ""}>${c.c} ${c.n}</option>`).join("")}
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="margin-top:10px">
-            <div class="field"><label>ملاحظات إضافية</label><textarea id="notes" placeholder="أي تفاصيل تانية عايز تقولها؟">${state.notes}</textarea></div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
   function stepGiftType(){
     return `
       <div class="grid">
         <div class="section">
           <div class="section-h"><h2><i class="fa-solid fa-gift"></i> محتاج الهدية إيه؟ <span class="req">*</span></h2></div>
-          <p style="font-size:10px; color:var(--text-dim); margin-bottom:12px;">يمكنك اختيار أكثر من نوع</p>
           <div class="chips" id="giftTypeChips">
             ${GIFT_OPTIONS.map(g => `
               <div class="chip ${state.giftTypes.includes(g.key) ? "active" : ""}" data-val="${g.key}">
@@ -719,18 +870,31 @@
     `;
   }
 
+  function stepNotes(){
+    return `
+      <div class="grid">
+        <div class="section">
+          <div class="section-h"><h2><i class="fa-solid fa-pen-nib"></i> ملاحظات إضافية</h2></div>
+          <div class="row">
+            <div class="field">
+              <label>أي تفاصيل تانية حابب تضيفها؟</label>
+              <textarea id="notes" placeholder="اكتب ملاحظاتك هنا (اختياري)...">${state.notes}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function stepReview(){
-    let cleanContact = state.contact.startsWith('0') ? state.contact.substring(1) : state.contact;
     return `
       <div class="grid">
         <div class="summary">
           <h3><i class="fa-solid fa-clipboard-check"></i> مراجعة البيانات</h3>
           <ul class="sum-list">
             <li>المناسبة: <b>${state.occasion}</b></li>
-            <li>الاسم: <b>${state.customerName}</b></li>
             <li>الهدية المطلوبة: <b>${state.giftTypes.join(" + ") || "لم يحدد"}</b></li>
             ${state.customIdea ? `<li>التفاصيل: <b>${state.customIdea}</b></li>` : ""}
-            <li>رقم التواصل: <b dir="ltr">${state.countryCode} ${cleanContact}</b></li>
             ${state.notes ? `<li>ملاحظات إضافية: <b>${state.notes}</b></li>` : ""}
           </ul>
         </div>
@@ -740,10 +904,10 @@
 
   function wireEvents(){
     document.querySelectorAll("#occChips .chip").forEach(c => {
-      c.onclick = () => { 
-        state.occasion = c.dataset.val; 
+      c.onclick = () => {
+        state.occasion = c.dataset.val;
         if(state.occasion !== "مناسبة خاصة") state.customIdea = "";
-        render(); 
+        render();
       };
     });
 
@@ -759,13 +923,9 @@
       };
     });
 
-    const ids = ["customIdea", "customerName", "contact", "notes", "countryCode"];
-    ids.forEach(id => {
+    ["customIdea", "notes"].forEach(id => {
       const el = document.getElementById(id);
-      if(el) el.oninput = (e) => { 
-        state[id] = e.target.value; 
-        save(); 
-      };
+      if(el) el.oninput = (e) => { state[id] = e.target.value; save(); };
     });
   }
 
@@ -774,83 +934,56 @@
        if(!state.occasion) return toast("اختار المناسبة");
        if(state.occasion === "مناسبة خاصة" && !state.customIdea.trim()) return toast("اكتب تفاصيل الفكرة");
     }
-    if(state.step===1 && (!state.customerName || !state.contact)) return toast("كمل البيانات المطلوبة");
-    if(state.step===2 && state.giftTypes.length === 0) return toast("اختار نوع الهدية على الأقل واحد");
+    if(state.step===1 && state.giftTypes.length === 0) return toast("اختار نوع الهدية");
     state.step++; render();
   }
+
   function prevStep(){ state.step--; render(); }
 
-  async function sendToTelegram() {
-    let cleanContact = state.contact.startsWith('0') ? state.contact.substring(1) : state.contact;
-    let fullContact = `${state.countryCode} ${cleanContact}`;
-    const now = new Date().toLocaleString('ar-EG');
-
-    let tgMsg = `🎁 *طلب جديد من HeartLink*\n`;
-    tgMsg += `━━━━━━━━━━━━━━\n`;
-    tgMsg += `📅 *الوقت:* ${now}\n`;
-    tgMsg += `🎈 *المناسبة:* ${state.occasion}\n`;
-    tgMsg += `🎀 *النوع:* ${state.giftTypes.join(" + ")}\n`;
-    tgMsg += `💡 *الفكرة:* ${state.customIdea || "تلقائي"}\n`;
-    tgMsg += `👤 *العميل:* ${state.customerName}\n`;
-    tgMsg += `📞 *رقم الواتساب:* ${fullContact}\n`;
-    tgMsg += `🆔 *رقم الطلب:* ${state.orderID}\n`;
-    if(state.notes) tgMsg += `📝 *ملاحظات:* ${state.notes}\n`;
-    tgMsg += `━━━━━━━━━━━━━━`;
-
-    try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: tgMsg, parse_mode: 'Markdown' })
-      });
-    } catch (e) { console.error(e); }
-  }
-
   function finish(){
-    state.orderID = generateOrderID(); 
-    sendToTelegram();
-    
-    // التعديل الجديد لصيغة الرسالة
     const ideaVal = state.customIdea || "تلقائي";
-    const waMsg = `مرحبا HeartLink\nعندي طلب لهدية [${state.occasion}] باسم [${state.customerName}]، التفاصيل: [${ideaVal}]. رقم الطلب: [${state.orderID}]`;
+    const notesStr = state.notes ? `\n📝 ملاحظات: ${state.notes}` : "";
+    
+    // بناء الرسالة المطلوبة بالظبط
+    const waMsg = `مرحبًا HeartLink ✨\n\nأرغب في طلب هدية رقمية، وهذه تفاصيل الطلب:\n\n🎁 المناسبة: ${state.occasion}\n📦 نوع الهدية: ${state.giftTypes.join(" + ")}\n💡 تفاصيل الفكرة: ${ideaVal}${notesStr}\n\nأرجو مراجعة الطلب والتواصل معي لتأكيد التنفيذ في أقرب وقت.\nشكرًا لكم 🤍`;
+    
     const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMsg)}`;
 
     document.getElementById("cardBody").innerHTML = `
       <div class="success-screen animate__animated animate__zoomIn">
         <div class="success-icon"><i class="fa-solid fa-check"></i></div>
-        <h3>تم تأكيد طلبك بنجاح!</h3>
-        <div class="order-number-badge">ID: ${state.orderID}</div>
-        <p>اضغط على الزر بالأسفل لإرسال الطلب عبر واتساب ومتابعة التنفيذ.</p>
+        <h3>تم تجهيز طلبك!</h3>
+        <p>جاري تحويلك الآن لمتابعة الطلب عبر واتساب...</p>
       </div>
     `;
 
     document.getElementById("footerActions").innerHTML = `
       <a href="${waLink}" class="btn whatsapp animate__animated animate__pulse animate__infinite" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i> تواصل واتساب وتابع طلبك أسرع
+        <i class="fa-brands fa-whatsapp"></i> إرسال الطلب عبر واتساب
       </a>
       <button class="btn ghost" onclick="resetAll()">طلب جديد</button>
     `;
 
     document.getElementById("barFill").style.width = "100%";
     document.querySelectorAll(".dot").forEach(d => d.classList.add("done"));
+
+    window.open(waLink, '_blank');
   }
 
-  function resetAll(){ 
-    if(confirm("متأكد انك عايز تبدأ طلب جديد؟")){ 
-      localStorage.removeItem(STORAGE_KEY); 
+  function resetAll(){
+    if(confirm("بدء طلب جديد؟")){
+      localStorage.removeItem(STORAGE_KEY);
       state.step = 0;
       state.occasion = "";
       state.customIdea = "";
-      state.customerName = "";
-      state.contact = "";
       state.notes = "";
-      state.orderID = "";
       state.giftTypes = [];
-      location.reload(); 
-    } 
+      location.reload();
+    }
   }
 
-  load(); render();
+  load();
+  render();
 </script>
 </body>
 </html>
